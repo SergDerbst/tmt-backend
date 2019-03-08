@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.layers.persistence;
+package com.toomanythoughts.tmt.layers.persistence.entities;
 
 import java.io.Serializable;
 import java.util.Date;
