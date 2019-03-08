@@ -1,8 +1,8 @@
-package com.toomanythoughts.tmt.commons.utils.reflection;
+package com.toomanythoughts.tmt.layers.commons.utils.reflection;
 
-import static com.toomanythoughts.tmt.commons.utils.reflection.ClassReflectionUtils.retrieveAnnotatedFields;
-import static com.toomanythoughts.tmt.commons.utils.reflection.ClassReflectionUtils.retrievePropertyFields;
-import static com.toomanythoughts.tmt.commons.utils.reflection.ClassReflectionUtils.retrieveTypeArgumentsOfField;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.ClassReflectionUtils.retrieveAnnotatedFields;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.ClassReflectionUtils.retrievePropertyFields;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.ClassReflectionUtils.retrieveTypeArgumentsOfField;
 import static org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes;
 
 import java.lang.annotation.Annotation;

@@ -1,9 +1,9 @@
-package com.toomanythoughts.tmt.business.model.article;
+package com.toomanythoughts.tmt.layers.logic.model.article;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.toomanythoughts.tmt.business.model.TextElement;
+import com.toomanythoughts.tmt.layers.logic.TextElement;
 
 public class ArticleParagraph {
 

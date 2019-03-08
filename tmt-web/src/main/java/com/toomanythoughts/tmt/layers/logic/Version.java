@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.business.model;
+package com.toomanythoughts.tmt.layers.logic;
 
 public class Version {
 

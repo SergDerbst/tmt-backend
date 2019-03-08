@@ -1,9 +1,9 @@
-package com.toomanythoughts.tmt.business.model.article;
+package com.toomanythoughts.tmt.layers.logic.model.article;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.toomanythoughts.tmt.business.model.TextElement;
+import com.toomanythoughts.tmt.layers.logic.TextElement;
 
 /**
  * The content represents the actual article. It consists of a main title and the article's

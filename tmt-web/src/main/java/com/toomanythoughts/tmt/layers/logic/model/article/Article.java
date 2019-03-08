@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.business.model.article;
+package com.toomanythoughts.tmt.layers.logic.model.article;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.joda.time.DateTime;
 
-import com.toomanythoughts.tmt.business.model.Version;
+import com.toomanythoughts.tmt.layers.logic.Version;
 
 public class Article {
 

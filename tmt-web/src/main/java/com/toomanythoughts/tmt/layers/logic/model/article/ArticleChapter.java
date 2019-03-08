@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.business.model.article;
+package com.toomanythoughts.tmt.layers.logic.model.article;
 
 import java.util.LinkedList;
 import java.util.List;

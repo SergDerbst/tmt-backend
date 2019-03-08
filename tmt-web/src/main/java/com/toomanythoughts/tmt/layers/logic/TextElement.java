@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.business.model;
+package com.toomanythoughts.tmt.layers.logic;
 
 /**
  * A text element is the most basic structural element of text. Apart from

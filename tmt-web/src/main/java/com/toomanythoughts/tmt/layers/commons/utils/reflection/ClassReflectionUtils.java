@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.commons.utils.reflection;
+package com.toomanythoughts.tmt.layers.commons.utils.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Inherited;

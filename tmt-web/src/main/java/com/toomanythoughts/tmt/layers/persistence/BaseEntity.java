@@ -1,9 +1,9 @@
-package com.toomanythoughts.tmt.persistence;
+package com.toomanythoughts.tmt.layers.persistence;
 
-import static com.toomanythoughts.tmt.commons.utils.reflection.ClassReflectionUtils.retrieveField;
-import static com.toomanythoughts.tmt.commons.utils.reflection.ClassReflectionUtils.retrieveFieldValue;
-import static com.toomanythoughts.tmt.commons.utils.reflection.ClassReflectionUtils.retrievePropertyFields;
-import static com.toomanythoughts.tmt.commons.utils.reflection.JpaEntityUtils.isRelationshipField;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.ClassReflectionUtils.retrieveField;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.ClassReflectionUtils.retrieveFieldValue;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.ClassReflectionUtils.retrievePropertyFields;
+import static com.toomanythoughts.tmt.layers.commons.utils.reflection.JpaEntityUtils.isRelationshipField;
 
 import java.lang.reflect.Field;
 
