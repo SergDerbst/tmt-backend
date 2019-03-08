@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.toomanythoughts.tmt.commons.exceptions.persistence.impl.EntityNotFoundInDatabaseException;
 import com.toomanythoughts.tmt.layers.persistence.entities.BaseEntity;
 
+
 public abstract class BaseCrudDaoService<Repo extends JpaRepository<Entity, Integer>, Entity extends BaseEntity> extends CrudDaoService<Repo, Entity, Integer> {
 
 	@Override
