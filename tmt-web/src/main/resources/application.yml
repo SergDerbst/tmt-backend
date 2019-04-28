@@ -25,6 +25,3 @@ spring:
               descriptor:
                  sql:
                     BasicBinder: TRACEll
-  security:
-     filter:
-        order: 0

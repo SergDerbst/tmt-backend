@@ -9,32 +9,35 @@ import java.util.Map;
 import org.joda.time.DateTime;
 
 import com.toomanythoughts.tmt.layers.logic.Version;
+import com.toomanythoughts.tmt.layers.logic.model.EpicPojo;
+import com.toomanythoughts.tmt.layers.logic.model.authentication.User;
 
-public class Article {
+public class Article extends EpicPojo {
 
-	private int articleId;
-	private int authorId;
+	private Integer articleId;
+	private User owner;
 	private DateTime createdAt;
 	private DateTime updatedAt;
-	private DateTime publishedOn;
+	private DateTime published;
 	private Version version;
-	private final List<String> tags = new ArrayList<>();
+
+	private final List<User> authors = new ArrayList<>();
 	private final Map<Locale, ArticleContent> content = new HashMap<>();
 
 	public int getArticleId() {
 		return this.articleId;
 	}
 
-	public void setArticleId(int articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
 
-	public int getAuthorId() {
-		return this.authorId;
+	public User getOwner() {
+		return this.owner;
 	}
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	public DateTime getCreatedAt() {
@@ -53,12 +56,12 @@ public class Article {
 		this.updatedAt = updatedAt;
 	}
 
-	public DateTime getPublishedOn() {
-		return this.publishedOn;
+	public DateTime getPublished() {
+		return this.published;
 	}
 
-	public void setPublishedOn(DateTime publishedOn) {
-		this.publishedOn = publishedOn;
+	public void setPublished(DateTime published) {
+		this.published = published;
 	}
 
 	public Version getVersion() {
@@ -69,8 +72,8 @@ public class Article {
 		this.version = version;
 	}
 
-	public List<String> getTags() {
-		return this.tags;
+	public List<User> getAuthors() {
+		return this.authors;
 	}
 
 	public Map<Locale, ArticleContent> getContent() {

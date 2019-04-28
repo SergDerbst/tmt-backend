@@ -1,18 +1,17 @@
 package com.toomanythoughts.tmt.layers.persistence.daos.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.toomanythoughts.tmt.layers.persistence.BaseCrudDaoService;
 import com.toomanythoughts.tmt.layers.persistence.daos.UserDao;
-import com.toomanythoughts.tmt.layers.persistence.entities.impl.User;
-import com.toomanythoughts.tmt.layers.persistence.repository.UserRepository;
+import com.toomanythoughts.tmt.layers.persistence.entities.impl.UserEntity;
+import com.toomanythoughts.tmt.layers.persistence.repositories.UserRepository;
 
 @Repository
 @Transactional
-public class UserDaoImpl extends BaseCrudDaoService<UserRepository, User> implements UserDao {
+public class UserDaoImpl extends BaseCrudDaoService<UserRepository, UserEntity> implements UserDao {
 
 	@Autowired
 	UserRepository repository;
@@ -22,12 +21,7 @@ public class UserDaoImpl extends BaseCrudDaoService<UserRepository, User> implem
 		return this.repository;
 	}
 
-	public User getByUsername(final String username) {
+	public UserEntity getByUsername(final String username) {
 		return this.repository.getByUsername(username);
-	}
-
-	@Override
-	public UserDetails loadByUsername(final String username) {
-		return (UserDetails) this.repository.getByUsername(username);
 	}
 }

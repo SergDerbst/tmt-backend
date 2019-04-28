@@ -3,6 +3,8 @@ package com.toomanythoughts.tmt.layers.logic.model.article;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.toomanythoughts.tmt.layers.logic.model.EpicPojo;
+
 /**
  * A section represents a set of paragraphs with a header as subheading within a chapter.
  * It serves to further structure an article's chapter. Any change in its header or structure
@@ -12,7 +14,7 @@ import java.util.List;
  * @author Sergio Weigel
  *
  */
-public class ArticleSection {
+public class ArticleSection extends EpicPojo {
 
 	private final List<ArticleParagraph> paragraphs = new LinkedList<>();
 	private String subheading;

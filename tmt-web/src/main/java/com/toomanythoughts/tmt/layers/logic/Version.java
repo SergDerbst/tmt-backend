@@ -12,6 +12,12 @@ public class Version {
 		this.patch = 0;
 	}
 
+	public Version(final int major, final int minor, final int patch) {
+		this.minor = major;
+		this.minor = minor;
+		this.patch = patch;
+	}
+
 	public void incrementMajor() {
 		this.major = this.major + 1;
 		this.minor = 0;

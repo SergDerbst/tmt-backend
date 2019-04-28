@@ -3,6 +3,8 @@ package com.toomanythoughts.tmt.layers.logic.model.article;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.toomanythoughts.tmt.layers.logic.model.EpicPojo;
+
 /**
  * A chapter represents the top-level structure of an article. It should be represented as
  * paginated and is itself structured in sections. Any change of a chapter's title or its
@@ -14,7 +16,7 @@ import java.util.List;
  * @author Sergio Weigel
  *
  */
-public class ArticleChapter {
+public class ArticleChapter extends EpicPojo {
 
 	private String title;
 	private final List<ArticleSection> sections = new LinkedList<>();

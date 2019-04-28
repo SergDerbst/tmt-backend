@@ -1,14 +1,19 @@
 package com.toomanythoughts.tmt.layers.persistence.entities.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,7 +30,7 @@ import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 @Entity
 @Table(name = "users")
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
-public class User extends BaseEntity {
+public class UserEntity extends BaseEntity {
 
 	private static final long serialVersionUID = -7568675960337363730L;
 
@@ -72,6 +77,12 @@ public class User extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "expires_at")
 	private Date expiresAt;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "users_articles",
+							joinColumns = @JoinColumn(name = "user_id"),
+							inverseJoinColumns = @JoinColumn(name = "article_id"))
+	private List<ArticleEntity> articles;
 
 	@Override
 	public Integer getId() {
@@ -168,6 +179,14 @@ public class User extends BaseEntity {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public List<ArticleEntity> getArticles() {
+		return this.articles;
+	}
+
+	public void setArticles(List<ArticleEntity> articles) {
+		this.articles = articles;
 	}
 
 }

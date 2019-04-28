@@ -14,11 +14,12 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.toomanythoughts.tmt.layers.logic.model.EpicPojo;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public abstract class AuditableEntity implements Serializable {
+public abstract class AuditableEntity extends EpicPojo implements Serializable {
 
 	private static final long serialVersionUID = -1073962735512307981L;
 

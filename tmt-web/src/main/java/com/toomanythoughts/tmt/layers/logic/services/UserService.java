@@ -1,29 +1,23 @@
 package com.toomanythoughts.tmt.layers.logic.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.toomanythoughts.tmt.layers.logic.model.authentication.UserModel;
+import com.toomanythoughts.tmt.layers.logic.model.authentication.User;
 import com.toomanythoughts.tmt.layers.persistence.daos.UserDao;
-import com.toomanythoughts.tmt.layers.persistence.entities.impl.User;
+import com.toomanythoughts.tmt.layers.persistence.entities.impl.UserEntity;
 
 @Service
-public class UserService extends ModelService<User, UserModel> implements UserDetailsService {
+public class UserService extends ModelService<UserEntity, User> {
 
 	@Autowired
 	UserDao userDao;
 
 	protected UserService() {
-		super(User.class, UserModel.class);
+		super(UserEntity.class, User.class);
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return this.userDao.loadByUsername(username);
+	public User getUserByUsername(String username) {
+		return super.toModel(this.userDao.getByUsername(username));
 	}
-
-
 }

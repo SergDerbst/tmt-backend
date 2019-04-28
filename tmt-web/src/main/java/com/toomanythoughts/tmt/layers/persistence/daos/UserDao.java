@@ -1,12 +1,10 @@
 package com.toomanythoughts.tmt.layers.persistence.daos;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.toomanythoughts.tmt.layers.persistence.CrudDao;
-import com.toomanythoughts.tmt.layers.persistence.entities.impl.User;
+import com.toomanythoughts.tmt.layers.persistence.entities.impl.UserEntity;
 
-public interface UserDao extends CrudDao<User, Integer> {
+public interface UserDao extends CrudDao<UserEntity, Integer> {
 
-	UserDetails loadByUsername(String username);
+	UserEntity getByUsername(String username);
 
 }

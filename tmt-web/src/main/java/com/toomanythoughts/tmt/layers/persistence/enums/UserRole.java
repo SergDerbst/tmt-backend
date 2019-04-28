@@ -1,8 +1,6 @@
 package com.toomanythoughts.tmt.layers.persistence.enums;
 
-import org.springframework.security.core.GrantedAuthority;
-
-public enum UserRole implements GrantedAuthority {
+public enum UserRole {
 	Reader("Reader"),
 	Voter("Voter"),
 	Author("Author"),
@@ -16,7 +14,6 @@ public enum UserRole implements GrantedAuthority {
 		this.authority = authority;
 	}
 
-	@Override
 	public String getAuthority() {
 		return this.authority;
 	}

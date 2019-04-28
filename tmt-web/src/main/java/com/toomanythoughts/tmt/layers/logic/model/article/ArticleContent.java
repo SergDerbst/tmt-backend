@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.toomanythoughts.tmt.layers.logic.TextElement;
+import com.toomanythoughts.tmt.layers.logic.model.EpicPojo;
 
 /**
  * The content represents the actual article. It consists of a main title and the article's
@@ -15,7 +16,7 @@ import com.toomanythoughts.tmt.layers.logic.TextElement;
  * @author Sergio Weigel
  *
  */
-public class ArticleContent {
+public class ArticleContent extends EpicPojo {
 
 	private String title;
 	private final List<TextElement> summary = new LinkedList<>();

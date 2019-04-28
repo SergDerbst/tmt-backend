@@ -1,18 +1,11 @@
 package com.toomanythoughts.tmt.layers.logic.model.authentication;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.joda.time.DateTime;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+import com.toomanythoughts.tmt.layers.logic.model.EpicPojo;
 import com.toomanythoughts.tmt.layers.persistence.enums.UserRole;
 
-public class UserModel implements UserDetails {
-
-	private static final long serialVersionUID = -3226290542833909663L;
+public class User extends EpicPojo {
 
 	private Integer userId;
 	private String username;
@@ -27,40 +20,22 @@ public class UserModel implements UserDetails {
 	private DateTime lastLogin;
 	private DateTime expiresAt;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		final List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(this.role);
-		return authorities;
-	}
-
-	@Override
 	public String getPassword() {
 		return this.password;
 	}
 
-	@Override
 	public String getUsername() {
 		return this.username;
 	}
 
-	@Override
 	public boolean isAccountNonExpired() {
 		return new DateTime(System.currentTimeMillis()).isAfter(this.expiresAt.getMillis());
 	}
 
-	@Override
 	public boolean isAccountNonLocked() {
 		return !this.isLocked;
 	}
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		//TODO
-		return false;
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return this.isEnabled;
 	}
