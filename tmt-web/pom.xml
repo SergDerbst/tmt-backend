@@ -16,6 +16,7 @@
   <properties>
 		<java.version>11</java.version>
 		<hibernate.types.version>2.4.2</hibernate.types.version>
+		<jaxb.runtime.version>2.3.2</jaxb.runtime.version>
 		<spring.version>5.1.5.RELEASE</spring.version>
 		<spring.security.oauth2.version>2.3.5.RELEASE</spring.security.oauth2.version>
 	</properties>
@@ -87,11 +88,17 @@
 			<artifactId>hibernate-types-52</artifactId>
 			<version>${hibernate.types.version}</version>
 		</dependency>
-   	<!-- Joda Time -->
-   	<dependency>
-    	<groupId>joda-time</groupId>
-    	<artifactId>joda-time</artifactId>
-</dependency>
+		<!-- JAXB Runtime (deprecated but still required by hibernate )-->
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>${jaxb.runtime.version}</version>
+		</dependency>
+		<!-- Joda Time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
 		<!-- PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>

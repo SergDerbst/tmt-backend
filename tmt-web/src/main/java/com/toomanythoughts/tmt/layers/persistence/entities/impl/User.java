@@ -23,7 +23,7 @@ import com.toomanythoughts.tmt.layers.persistence.enums.UserRole;
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class User extends BaseEntity {
 
@@ -36,7 +36,7 @@ public class User extends BaseEntity {
 	private Integer id;
 
 	@Column(name = "username", unique = true, nullable = false, length = 25)
-	private String userName;
+	private String username;
 
 	@Column(name =" password", nullable = false, length = 50)
 	private String password;
@@ -54,6 +54,12 @@ public class User extends BaseEntity {
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive;
 
+	@Column(name = "is_locked", nullable = false)
+	private Boolean isLocked;
+
+	@Column(name = "is_enabled", nullable = false)
+	private Boolean isEnabled;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role", nullable = false)
 	@Type(type = "pgsql_enum")
@@ -62,6 +68,10 @@ public class User extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "last_login")
 	private Date lastLogin;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "expires_at")
+	private Date expiresAt;
 
 	@Override
 	public Integer getId() {
@@ -127,4 +137,37 @@ public class User extends BaseEntity {
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
+
+	public Boolean getIsLocked() {
+		return this.isLocked;
+	}
+
+	public void setIsLocked(Boolean isLocked) {
+		this.isLocked = isLocked;
+	}
+
+	public Date getExpiresAt() {
+		return this.expiresAt;
+	}
+
+	public void setExpiresAt(Date expiresAt) {
+		this.expiresAt = expiresAt;
+	}
+
+	public Boolean getIsEnabled() {
+		return this.isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 }

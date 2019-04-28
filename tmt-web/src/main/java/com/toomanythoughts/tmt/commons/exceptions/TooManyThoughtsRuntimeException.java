@@ -1,7 +1,6 @@
 package com.toomanythoughts.tmt.commons.exceptions;
 
 import org.apache.commons.lang3.exception.ContextedRuntimeException;
-import org.apache.commons.lang3.exception.ExceptionContext;
 
 @SuppressWarnings("serial")
 public abstract class TooManyThoughtsRuntimeException extends ContextedRuntimeException {
@@ -18,15 +17,8 @@ public abstract class TooManyThoughtsRuntimeException extends ContextedRuntimeEx
 		super(cause);
 	}
 
-	protected TooManyThoughtsRuntimeException(	final String message,
+	protected TooManyThoughtsRuntimeException(final String message,
 																		final Throwable cause) {
-		super(message,
-		      cause);
-	}
-
-	protected TooManyThoughtsRuntimeException(	final String message,
-																		final Throwable cause,
-	                                 	final ExceptionContext context) {
-		super(message);
+		super(message, cause);
 	}
 }

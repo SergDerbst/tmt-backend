@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.toomanythoughts.tmt.commons.exceptions.persistence.impl.EntityNotFoundInDatabaseException;
+import com.toomanythoughts.tmt.commons.exceptions.persistence.impl.EntityNotFoundInDatabaseRuntimeException;
 
 /**
  * Abstract base implementation of {@link CrudDao}.
@@ -19,13 +19,13 @@ import com.toomanythoughts.tmt.commons.exceptions.persistence.impl.EntityNotFoun
  *          the repository for the entity.
  * @author Sergio Weigel
  */
-@Transactional(rollbackFor = EntityNotFoundInDatabaseException.class)
+@Transactional(rollbackFor = EntityNotFoundInDatabaseRuntimeException.class)
 public abstract class CrudDaoService<Repo extends JpaRepository<Entity, ID>, Entity, ID extends Serializable> implements CrudDao<Entity, ID> {
 
 	public abstract Repo getRepository();
 
 	@Override
-	public abstract Entity update(final Entity entity) throws EntityNotFoundInDatabaseException;
+	public abstract Entity update(final Entity entity) throws EntityNotFoundInDatabaseRuntimeException;
 
 	@Override
 	public Entity readById(final ID id) {
