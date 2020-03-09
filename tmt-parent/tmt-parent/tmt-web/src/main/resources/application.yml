@@ -1,12 +1,12 @@
 spring:
    datasource:
-      url: jdbc.postgresql://localhost:5432/tmt
+      url: jdbc:postgresql://localhost:5432/tmt
       username: tmt
       password: toomanythoughts
       driver-class-name: org.postgresql.Driver
    flyway:
       baselineOnMigrate: true
-      locations: classpath:db/migrations
+      locations: classpath:db/migration
    jpa:
       hibernate:
          ddl-auto: update
