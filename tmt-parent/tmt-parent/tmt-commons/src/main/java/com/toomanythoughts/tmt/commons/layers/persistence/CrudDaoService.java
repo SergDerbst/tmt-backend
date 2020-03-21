@@ -29,43 +29,36 @@ public abstract class CrudDaoService<Repo extends JpaRepository<Entity, ID>, Ent
 
 	@Override
 	public Entity readById(final ID id) {
-		return this.getRepository()
-								.getOne(id);
+		return this.getRepository().getOne(id);
 	}
 
 	@Override
 	public List<Entity> readAll() {
-		return this.getRepository()
-								.findAll();
+		return this.getRepository().findAll();
 	}
 
 	@Override
 	public Entity create(final Entity entity) {
-		return this.getRepository()
-								.save(entity);
+		return this.getRepository().save(entity);
 	}
 
 	@Override
 	public List<Entity> createAll(final List<Entity> entities) {
-		return this.getRepository()
-								.saveAll(entities);
+		return this.getRepository().saveAll(entities);
 	}
 
 	@Override
 	public void delete(final ID id) {
-		this.getRepository()
-				.deleteById(id);
+		this.getRepository().deleteById(id);
 	}
 
 	@Override
 	public boolean exists(final ID id) {
-		return this.getRepository()
-								.existsById(id);
+		return this.getRepository().existsById(id);
 	}
 
 	@Override
 	public long count() {
-		return this.getRepository()
-								.count();
+		return this.getRepository().count();
 	}
 }

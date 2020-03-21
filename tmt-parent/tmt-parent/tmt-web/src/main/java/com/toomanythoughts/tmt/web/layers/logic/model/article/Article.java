@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 import com.toomanythoughts.tmt.web.layers.logic.Version;
-import com.toomanythoughts.tmt.web.layers.logic.model.authentication.User;
+import com.toomanythoughts.tmt.web.layers.logic.model.auth.User;
 
 public class Article extends EpicPojo {
 

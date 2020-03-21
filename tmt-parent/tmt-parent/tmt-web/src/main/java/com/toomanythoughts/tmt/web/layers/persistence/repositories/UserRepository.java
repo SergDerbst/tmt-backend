@@ -2,7 +2,7 @@ package com.toomanythoughts.tmt.web.layers.persistence.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.toomanythoughts.tmt.web.layers.persistence.entities.UserEntity;
+import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 

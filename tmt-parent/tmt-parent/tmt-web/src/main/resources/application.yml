@@ -13,7 +13,7 @@ spring:
       generate-ddl: true
       properties:
          hibernate:
-            dialect: org.hibernate.dialect.PostgreSQL9Dialect
+            dialect: org.hibernate.dialect.PostgreSQL10Dialect
             jdbc:
                lob:
                   non_contextual_creation: true
@@ -26,3 +26,5 @@ spring:
                descriptor:
                   sql:
                      BasicBinder: TRACEll
+server:
+   port: 8081

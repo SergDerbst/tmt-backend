@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.toomanythoughts.tmt.commons.layers.persistence.BaseCrudDaoService;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.UserDao;
-import com.toomanythoughts.tmt.web.layers.persistence.entities.UserEntity;
+import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 import com.toomanythoughts.tmt.web.layers.persistence.repositories.UserRepository;
 
 @Repository

@@ -1,11 +1,12 @@
-package com.toomanythoughts.tmt.web.layers.logic.services;
+package com.toomanythoughts.tmt.web.layers.logic.services.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.toomanythoughts.tmt.web.layers.logic.model.authentication.User;
+import com.toomanythoughts.tmt.web.layers.logic.model.auth.User;
+import com.toomanythoughts.tmt.web.layers.logic.services.ModelService;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.UserDao;
-import com.toomanythoughts.tmt.web.layers.persistence.entities.UserEntity;
+import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
 @Service
 public class UserService extends ModelService<UserEntity, User> {
