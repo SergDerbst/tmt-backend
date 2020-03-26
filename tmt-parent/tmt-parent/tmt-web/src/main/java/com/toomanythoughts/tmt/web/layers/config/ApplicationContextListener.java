@@ -1,15 +1,12 @@
 package com.toomanythoughts.tmt.web.layers.config;
 
-import java.util.Arrays;
-
-import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.toomanythoughts.tmt.commons.exceptions.config.impl.RolesNotConfiguredRuntimeException;
-import com.toomanythoughts.tmt.web.layers.logic.services.auth.RoleService;
+import com.toomanythoughts.tmt.web.layers.logic.auth.services.RoleService;
 
 @Component
 public class ApplicationContextListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -21,16 +18,6 @@ public class ApplicationContextListener implements ApplicationListener<ContextRe
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-
-		System.out.println("############ - application context started with beans: ");
-		final String[] beans = event.getApplicationContext().getBeanDefinitionNames();
-		Arrays.parallelSort(beans);
-		for (final String bean : beans) {
-			System.out.println(bean);
-		}
-
-		final AbstractShiroFilter bean = (AbstractShiroFilter) event.getApplicationContext().getBean("shiroFilterFactoryBean");
-
 		this.roleService.ensureRoleExists("Reader");
 		this.roleService.ensureRoleExists("Voter");
 		this.roleService.ensureRoleExists("Translator");

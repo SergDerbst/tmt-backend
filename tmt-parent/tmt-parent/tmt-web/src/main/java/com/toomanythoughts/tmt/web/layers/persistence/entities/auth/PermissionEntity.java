@@ -65,4 +65,12 @@ public class PermissionEntity extends BaseEntity {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public Map<String, Object> getConfiguration() {
+		return this.configuration;
+	}
+
+	public void setConfiguration(Map<String, Object> configuration) {
+		this.configuration = configuration;
+	}
 }

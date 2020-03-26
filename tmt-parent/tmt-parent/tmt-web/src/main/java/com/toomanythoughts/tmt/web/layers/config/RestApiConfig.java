@@ -6,7 +6,7 @@ import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.toomanythoughts.tmt.web.layers.logic.model.auth.TMTRealm;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.TMTRealm;
 
 @Configuration
 public class RestApiConfig {

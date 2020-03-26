@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.toomanythoughts.tmt.web.layers.logic.model.geo.CountryNameEntry;
-import com.toomanythoughts.tmt.web.layers.logic.services.geo.CountryMetaDataService;
+import com.toomanythoughts.tmt.web.layers.logic.geo.model.CountryNameEntry;
+import com.toomanythoughts.tmt.web.layers.logic.geo.services.CountryMetaDataService;
 
 @RestController
 @CrossOrigin

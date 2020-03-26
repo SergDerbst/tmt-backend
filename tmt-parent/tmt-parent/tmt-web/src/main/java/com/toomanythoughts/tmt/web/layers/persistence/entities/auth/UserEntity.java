@@ -87,6 +87,15 @@ public class UserEntity extends BaseEntity {
 	@Type(type ="com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType")
 	private UserSex sex;
 
+	@Column(name = "is_email_validated")
+	private boolean isEmailValidated;
+
+	@Column(name = "is_payment_validated")
+	private boolean isPaymentValidated;
+
+	@Column(name = "is_postal_validated")
+	private boolean isPostalValidated;
+
 	@Override
 	public Integer getId() {
 		return this.id;
@@ -174,5 +183,29 @@ public class UserEntity extends BaseEntity {
 
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
+	}
+
+	public boolean isEmailValidated() {
+		return this.isEmailValidated;
+	}
+
+	public void setEmailValidated(boolean isEmailValidated) {
+		this.isEmailValidated = isEmailValidated;
+	}
+
+	public boolean isPaymentValidated() {
+		return this.isPaymentValidated;
+	}
+
+	public void setPaymentValidated(boolean isPaymentValidated) {
+		this.isPaymentValidated = isPaymentValidated;
+	}
+
+	public boolean isPostalValidated() {
+		return this.isPostalValidated;
+	}
+
+	public void setPostalValidated(boolean isPostalValidated) {
+		this.isPostalValidated = isPostalValidated;
 	}
 }
