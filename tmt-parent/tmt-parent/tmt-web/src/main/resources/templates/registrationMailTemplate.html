@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:remove="all">Template for HTML email with inline image</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<header>TooManyThoughts</header>
+		<section>
+			<p th:text="#{registration.mail.greeting(${#messages.msg('mail.greeting.title.' + user.personalData.title.representation, user.personalData.firstName, user.personalData.lastName)})}"></p>
+			<p th:text="#{registration.mail.preamble}"></p>
+			<p>
+				<a th:text="#{registration.mail.link}"
+					 th:href="@{http://localhost:8081/auth/register/validate/{id}/{key}(id = ${user.id}, key = ${user.emailValidationKey})}"></a>
+			</p>
+			<p>
+				<span th:text="#{registration.mail.clue01(${user.credentials.username})}"></span>
+				<span th:text="#{registration.mail.clue02}"></span>
+			</p>
+			<p th:text="#{registration.mail.catchphrase}"></p>
+			<p th:text="#{registration.mail.goodbye}"></p>
+			<p>
+				<span th:text="#{registration.mail.signature01}"></span>
+				<br>
+				<span th:text="#{registration.mail.signature02}"></span>
+			</p>
+		</section>
+		<footer></footer>
+	</body>
+</html>

@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.toomanythoughts.tmt.commons.annotations.ExcludeFromObjectContract;
+
 public abstract class EpicPojo {
 
 	@Override
@@ -25,8 +27,10 @@ public abstract class EpicPojo {
 		final EpicPojo other = (EpicPojo) o;
 		final EqualsBuilder equals = new EqualsBuilder();
 		for (final Field thisField : retrievePropertyFields(this.getClass())) {
-			final Field otherField = retrieveField(thisField.getName(), other);
-			equals.append(retrieveFieldValue(thisField, this), retrieveFieldValue(otherField, other));
+			if (this.isNotExcludedFromEquals(thisField)) {
+				final Field otherField = retrieveField(thisField.getName(), other);
+				equals.append(retrieveFieldValue(thisField, this), retrieveFieldValue(otherField, other));
+			}
 		}
 		return equals.build();
 	}
@@ -35,7 +39,9 @@ public abstract class EpicPojo {
 	public int hashCode() {
 		final HashCodeBuilder hashCode = new HashCodeBuilder();
 		for (final Field field : retrievePropertyFields(this.getClass())) {
-			hashCode.append(retrieveFieldValue(field, this));
+			if (this.isNotExcludedFromHashCode(field)) {
+				hashCode.append(retrieveFieldValue(field, this));
+			}
 		}
 		return hashCode.build();
 	}
@@ -45,20 +51,37 @@ public abstract class EpicPojo {
 		final StringBuilder sB = new StringBuilder();
 		sB.append("Class: " + this.getClass().getName() + "@" + System.identityHashCode(this));
 		for (final Field field : retrievePropertyFields(this.getClass())) {
-			field.setAccessible(true);
-			sB.append("\n");
-			sB.append("field: " + field.getName());
-			sB.append(", type: " + field.getType().getName());
-			try {
-				sB.append(", value: " + field.getByte(this));
-			} catch (final Exception e) {
-				/*
-				 * We usually don't swallow exceptions (we spit), but here we make an
-				 * exception (pun intended) as not to kill the vibe of a good string representation.
-				 */
-				sB.append("Failed to fetch value of field! " + e.getClass().getName());
+			if (this.isNotExcludedFromToString(field)) {
+				field.setAccessible(true);
+				sB.append("\n");
+				sB.append("field: " + field.getName());
+				sB.append(", type: " + field.getType().getName());
+				try {
+					sB.append(", value: " + field.getByte(this));
+				} catch (final Exception e) {
+					/*
+					 * We usually don't swallow exceptions (we spit), but here we make an
+					 * exception (pun intended) as not to kill the vibe of a good string representation.
+					 */
+					sB.append("Failed to fetch value of field! " + e.getClass().getName());
+				}
 			}
 		}
 		return sB.toString();
+	}
+
+	private boolean isNotExcludedFromToString(final Field field) {
+		return field.getDeclaredAnnotation(ExcludeFromObjectContract.class) == null ||
+				!field.getDeclaredAnnotation(ExcludeFromObjectContract.class).fromToString();
+	}
+
+	private boolean isNotExcludedFromHashCode(final Field field) {
+		return field.getDeclaredAnnotation(ExcludeFromObjectContract.class) == null ||
+				!field.getAnnotation(ExcludeFromObjectContract.class).fromHashCode();
+	}
+
+	private boolean isNotExcludedFromEquals(final Field field) {
+		return field.getDeclaredAnnotation(ExcludeFromObjectContract.class) == null ||
+				!field.getDeclaredAnnotation(ExcludeFromObjectContract.class).fromEquals();
 	}
 }

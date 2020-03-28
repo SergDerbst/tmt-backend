@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.toomanythoughts.tmt.commons.annotations.ExcludeFromObjectContract;
 import com.toomanythoughts.tmt.commons.layers.persistence.entities.BaseEntity;
 
 @Entity
@@ -30,10 +32,11 @@ public class RoleEntity extends BaseEntity {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy="roles")
+	@ManyToMany(mappedBy="roles", fetch = FetchType.LAZY)
+	@ExcludeFromObjectContract
 	private Set<UserEntity> users;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "roles_permissions",
 			joinColumns = @JoinColumn(name = "role_id"),

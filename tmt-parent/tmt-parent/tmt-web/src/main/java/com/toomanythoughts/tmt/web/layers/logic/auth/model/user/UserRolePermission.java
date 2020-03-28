@@ -1,10 +1,10 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model;
+package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
 
 import java.util.Map;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 
-public class Permission extends EpicPojo {
+public class UserRolePermission extends EpicPojo {
 
 	private Integer id;
 	private String name;

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.toomanythoughts.tmt.commons.annotations.ExcludeFromObjectContract;
 import com.toomanythoughts.tmt.commons.layers.persistence.entities.BaseEntity;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
@@ -38,7 +40,8 @@ public class PermissionEntity extends BaseEntity {
 	@Column(name = "configuration", columnDefinition="jsonb")
 	private Map<String, Object> configuration;
 
-	@ManyToMany(mappedBy = "permissions")
+	@ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
+	@ExcludeFromObjectContract
 	private Set<RoleEntity> roles;
 
 	@Override

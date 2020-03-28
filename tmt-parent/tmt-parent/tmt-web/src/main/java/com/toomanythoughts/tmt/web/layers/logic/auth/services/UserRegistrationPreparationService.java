@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.toomanythoughts.tmt.commons.exceptions.logic.impl.DataInvalidRuntimeException;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.Role;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.UserForEmailValidationModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.UserForRegistrationModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.PersonalData.DayOfBirth;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserForEmailValidationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserForRegistrationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserPersonalDataModel.DayOfBirth;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRoleModel;
 
 /**
  * This service prepares the {@link UserForRegistrationModel} model to be registered as
@@ -48,15 +48,22 @@ public class UserRegistrationPreparationService {
 		this.ensurePersonalData(user);
 		this.ensureCredentials(user);
 		this.ensureRoles(user);
+		this.ensurePreferredLanguages(user);
+	}
+
+	private void ensurePreferredLanguages(UserForRegistrationModel user) {
+		if (user.getPreferredLanguage() == null) {
+			user.setPreferredLanguage("en-US");
+		}
 	}
 
 	private void ensureRoles(UserForRegistrationModel user) {
-		final Set<Role> realRoles = new HashSet<>();
+		final Set<UserRoleModel> realRoles = new HashSet<>();
 		if (user.getRoles() == null || user.getRoles().size() == 0) {
 			realRoles.add(this.roleService.findDefaultRole());
 		} else {
-			for (final Role role : user.getRoles()) {
-				final Role real = this.roleService.findByName(role.getName());
+			for (final UserRoleModel role : user.getRoles()) {
+				final UserRoleModel real = this.roleService.findByName(role.getName());
 				if (real != null) {
 					realRoles.add(real);
 				} else {
@@ -70,7 +77,7 @@ public class UserRegistrationPreparationService {
 
 	private void ensureCredentials(UserForRegistrationModel user) {
 		if (user.getCredentials() == null) {
-			throw DataInvalidRuntimeException.prepare("A new user must have credentials.", "user.personalData", null);
+			throw DataInvalidRuntimeException.prepare("A new user must have credentials.", "user.credentials", null);
 		}
 		this.ensureUsername(user);
 		this.ensureEmail(user);

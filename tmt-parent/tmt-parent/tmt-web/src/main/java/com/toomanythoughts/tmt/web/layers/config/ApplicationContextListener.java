@@ -18,6 +18,15 @@ public class ApplicationContextListener implements ApplicationListener<ContextRe
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+
+//		System.out.println("############ - application context started with beans: ");
+//		final String[] beanNames = event.getApplicationContext().getBeanDefinitionNames();
+//		Arrays.parallelSort(beanNames);
+//		for (final String beanName : beanNames) {
+//			final Object bean = event.getApplicationContext().getBean(beanName);
+//			System.out.println(beanName + ": " + bean.getClass().getName());
+//		}
+
 		this.roleService.ensureRoleExists("Reader");
 		this.roleService.ensureRoleExists("Voter");
 		this.roleService.ensureRoleExists("Translator");

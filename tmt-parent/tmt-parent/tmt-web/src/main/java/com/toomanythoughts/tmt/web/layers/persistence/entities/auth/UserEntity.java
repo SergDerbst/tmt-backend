@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class UserEntity extends BaseEntity {
 	@Column(name =  "user_id")
 	private Integer id;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
@@ -87,8 +88,17 @@ public class UserEntity extends BaseEntity {
 	@Type(type ="com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType")
 	private UserSex sex;
 
+	@Column(name = "preferred_languages", nullable = false)
+	private String preferredLanguage;
+
 	@Column(name = "is_email_validated")
 	private boolean isEmailValidated;
+
+	@Column(name = "email_validation_key")
+	private String emailValidationKey;
+
+	@Column(name = "email_validation_sent")
+	private Date emailValidationSent;
 
 	@Column(name = "is_payment_validated")
 	private boolean isPaymentValidated;
@@ -207,5 +217,29 @@ public class UserEntity extends BaseEntity {
 
 	public void setPostalValidated(boolean isPostalValidated) {
 		this.isPostalValidated = isPostalValidated;
+	}
+
+	public Date getEmailValidationSent() {
+		return this.emailValidationSent;
+	}
+
+	public void setEmailValidationSent(Date emailValidationSent) {
+		this.emailValidationSent = emailValidationSent;
+	}
+
+	public String getPreferredLanguage() {
+		return this.preferredLanguage;
+	}
+
+	public void setPreferredLanguage(String preferredLanguage) {
+		this.preferredLanguage = preferredLanguage;
+	}
+
+	public String getEmailValidationKey() {
+		return this.emailValidationKey;
+	}
+
+	public void setEmailValidationKey(String emailValidationKey) {
+		this.emailValidationKey = emailValidationKey;
 	}
 }

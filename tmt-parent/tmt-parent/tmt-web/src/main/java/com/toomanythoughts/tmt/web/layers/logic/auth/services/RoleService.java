@@ -6,15 +6,14 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.toomanythoughts.tmt.web.layers.logic.StandardModelService;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.Permission;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.Role;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRoleModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRolePermission;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.RoleDao;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.PermissionEntity;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.RoleEntity;
 
 @Service
-public class RoleService extends StandardModelService<Role, RoleEntity> {
+public class RoleService {
 
 	@Autowired
 	RoleDao roleDao;
@@ -34,7 +33,7 @@ public class RoleService extends StandardModelService<Role, RoleEntity> {
 		}
 	}
 
-	public Role findByName(String name) {
+	public UserRoleModel findByName(String name) {
 		final RoleEntity roleEntity = this.roleDao.getByName(name);
 		if (roleEntity != null) {
 			return this.toModel(roleEntity);
@@ -43,16 +42,15 @@ public class RoleService extends StandardModelService<Role, RoleEntity> {
 		}
 	}
 
-	public Role findDefaultRole() {
+	public UserRoleModel findDefaultRole() {
 		return this.findByName("Reader");
 	}
 
-	@Override
-	public Role toModel(final RoleEntity entity) {
-		final Role model = new Role();
+	public UserRoleModel toModel(final RoleEntity entity) {
+		final UserRoleModel model = new UserRoleModel();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
-		final Set<Permission> permissions = new HashSet<>();
+		final Set<UserRolePermission> permissions = new HashSet<>();
 		if (entity.getPermissions() != null && !entity.getPermissions().isEmpty()) {
 			for (final PermissionEntity permissionEntity : entity.getPermissions()) {
 				permissions.add(this.permissionService.toModel(permissionEntity));
@@ -62,14 +60,13 @@ public class RoleService extends StandardModelService<Role, RoleEntity> {
 		return model;
 	}
 
-	@Override
-	public RoleEntity toEntity(final Role model) {
+	public RoleEntity toEntity(final UserRoleModel model) {
 		final RoleEntity entity = new RoleEntity();
 		entity.setId(model.getId());
 		entity.setName(model.getName());
 		final Set<PermissionEntity> permissions = new HashSet<>();
 		if (model.getPermissions() != null && !model.getPermissions().isEmpty()) {
-			for (final Permission permission : model.getPermissions()) {
+			for (final UserRolePermission permission : model.getPermissions()) {
 				permissions.add(this.permissionService.toEntity(permission));
 			}
 		}

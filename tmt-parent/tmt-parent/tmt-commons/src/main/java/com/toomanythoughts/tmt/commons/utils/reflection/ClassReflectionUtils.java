@@ -75,7 +75,7 @@ public class ClassReflectionUtils {
 	}
 
 	public static List<Field> retrieveConstantFields(final Class<?> clazz) {
-		final List<Field> fields = new ArrayList<Field>();
+		final List<Field> fields = new ArrayList<>();
 		for (final Field field : retrieveAllFields(clazz)) {
 			if (!isFieldToBeProvidedAsPropertyField(field)) {
 				fields.add(field);
@@ -85,7 +85,7 @@ public class ClassReflectionUtils {
 	}
 
 	public static List<Field> retrievePropertyFields(final Class<?> clazz) {
-		final List<Field> fields = new ArrayList<Field>();
+		final List<Field> fields = new ArrayList<>();
 		for (final Field field : retrieveAllFields(clazz)) {
 			if (isFieldToBeProvidedAsPropertyField(field)) {
 				fields.add(field);
@@ -95,7 +95,7 @@ public class ClassReflectionUtils {
 	}
 
 	public static List<Field> retrieveAllFields(final Class<?> clazz) {
-		final List<Field> fields = new ArrayList<Field>();
+		final List<Field> fields = new ArrayList<>();
 		Class<?> currentClass = clazz;
 		while (!Object.class.equals(currentClass)) {
 			for (final Field field : currentClass.getDeclaredFields()) {
