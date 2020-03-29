@@ -3,9 +3,6 @@ package com.toomanythoughts.tmt.web.layers.config;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.apache.shiro.realm.Realm;
-import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
-import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,15 +12,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.TMTRealm;
-
 @Configuration
 public class RestApiConfig {
-
-	@Bean
-	public Realm realm() {
-		return new TMTRealm();
-	}
 
 	@Bean
 	public JavaMailSender mailSender() {
@@ -61,12 +51,5 @@ public class RestApiConfig {
 		msgSource.setBasename("classpath:/i18n/messages");
 		msgSource.setDefaultEncoding("UTF-8");
 		return msgSource;
-	}
-
-	@Bean
-	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
-		final DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
-		chainDefinition.addPathDefinition("/**", "anon");
-		return chainDefinition;
 	}
 }
