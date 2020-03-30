@@ -5,8 +5,10 @@ import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
 public interface UserDao extends CrudDao<UserEntity, Integer> {
 
+	UserEntity getById(Integer id);
+
 	UserEntity getByUsername(String username);
 
-	UserEntity getById(Integer id);
+	UserEntity getByEmail(String email);
 
 }

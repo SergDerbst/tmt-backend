@@ -6,7 +6,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.toomanythoughts.tmt.commons.exceptions.config.impl.RolesNotConfiguredRuntimeException;
-import com.toomanythoughts.tmt.web.layers.logic.auth.services.RoleService;
+import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.RoleService;
 
 @Component
 public class ApplicationContextListener implements ApplicationListener<ContextRefreshedEvent> {

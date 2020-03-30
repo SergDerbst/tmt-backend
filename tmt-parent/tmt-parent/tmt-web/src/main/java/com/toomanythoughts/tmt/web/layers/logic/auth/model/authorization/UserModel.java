@@ -1,57 +1,49 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
+package com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization;
 
 import java.util.Set;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
+import com.toomanythoughts.tmt.web.layers.logic.geo.model.AddressModel;
 
 public class UserModel extends EpicPojo {
 
-	private Integer id;
-	private UserCredentialsModel credentials;
-	private UserPersonalDataModel personalData;
-	private UserAddress address;
-	private Set<UserRoleModel> roles;
+	private CredentialsModel credentials;
+	private PersonalDataModel personalData;
+	private AddressModel<UserModel> address;
+	private Set<RoleModel> roles;
 	private boolean isEmailValidated;
 	private boolean isPaymentValidated;
 	private boolean isPostalValidated;
 
-	public Integer getId() {
-		return this.id;
+	public CredentialsModel getCredentials() {
+		return this.credentials;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public UserCredentialsModel getCredentials() {
-		return credentials;
-	}
-
-	public void setCredentials(UserCredentialsModel credentials) {
+	public void setCredentials(CredentialsModel credentials) {
 		this.credentials = credentials;
 	}
 
-	public UserPersonalDataModel getPersonalData() {
+	public PersonalDataModel getPersonalData() {
 		return this.personalData;
 	}
 
-	public void setPersonalData(UserPersonalDataModel personalData) {
+	public void setPersonalData(PersonalDataModel personalData) {
 		this.personalData = personalData;
 	}
 
-	public UserAddress getAddress() {
+	public AddressModel<UserModel> getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(UserAddress address) {
+	public void setAddress(AddressModel<UserModel> address) {
 		this.address = address;
 	}
 
-	public Set<UserRoleModel> getRoles() {
+	public Set<RoleModel> getRoles() {
 		return this.roles;
 	}
 
-	public void setRoles(Set<UserRoleModel> roles) {
+	public void setRoles(Set<RoleModel> roles) {
 		this.roles = roles;
 	}
 

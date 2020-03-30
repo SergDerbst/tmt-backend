@@ -10,10 +10,19 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-public class RestApiConfig {
+public class RestApiConfig implements WebMvcConfigurer {
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry
+			.addMapping("/**")
+			.allowedMethods("HEAD", "DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT");
+	}
 
 	@Bean
 	public JavaMailSender mailSender() {
@@ -37,13 +46,6 @@ public class RestApiConfig {
 		localeResolver.setDefaultLocale(Locale.US);
 		return localeResolver;
 	}
-//
-//	@Bean
-//	public LocalValidatorFactoryBean validator() {
-//		final LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-//		validator.setValidationMessageSource(this.messageSource());
-//		return validator;
-//	}
 
 	@Bean
 	public MessageSource messageSource() {

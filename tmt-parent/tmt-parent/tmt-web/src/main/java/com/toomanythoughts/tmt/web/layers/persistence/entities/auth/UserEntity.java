@@ -44,12 +44,6 @@ public class UserEntity extends BaseEntity {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<RoleEntity> roles;
 
-	/*
-	 * #######################
-	 * ##### credentials #####
-	 * #######################
-	 */
-
 	@Column(name = "username", unique = true, nullable = false, length = 25)
 	private String username;
 
@@ -60,11 +54,6 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "email", unique = true, nullable = false, length = 255)
 	private String email;
 
-	/*
-	 * #########################
-	 * ##### personal data #####
-	 * #########################
-	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name = "title", nullable = false)
 	@Type(type = "com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType")
@@ -105,6 +94,15 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "is_postal_validated")
 	private boolean isPostalValidated;
+
+	@Column(name = "access_token")
+	private String accessToken;
+
+	@Column(name = "access_token_expiration")
+	private Date accessTokenExpiration;
+
+	@Column(name = "refresh_token")
+	private String refreshToken;
 
 	@Override
 	public Integer getId() {
@@ -241,5 +239,29 @@ public class UserEntity extends BaseEntity {
 
 	public void setEmailValidationKey(String emailValidationKey) {
 		this.emailValidationKey = emailValidationKey;
+	}
+
+	public String getAccessToken() {
+		return this.accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public Date getAccessTokenExpiration() {
+		return this.accessTokenExpiration;
+	}
+
+	public void setAccessTokenExpiration(Date accessTokenExpiration) {
+		this.accessTokenExpiration = accessTokenExpiration;
+	}
+
+	public String getRefreshToken() {
+		return this.refreshToken;
+	}
+
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 }

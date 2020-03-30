@@ -1,14 +1,14 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
+package com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization;
 
 import java.util.Set;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 
-public class UserRoleModel extends EpicPojo {
+public class RoleModel extends EpicPojo {
 
 	private Integer id;
 	private String name;
-	private Set<UserRolePermission> permissions;
+	private Set<PermissionModel> permissions;
 
 	public Integer getId() {
 		return this.id;
@@ -26,11 +26,11 @@ public class UserRoleModel extends EpicPojo {
 		this.name = name;
 	}
 
-	public Set<UserRolePermission> getPermissions() {
+	public Set<PermissionModel> getPermissions() {
 		return this.permissions;
 	}
 
-	public void setPermissions(Set<UserRolePermission> permissions) {
+	public void setPermissions(Set<PermissionModel> permissions) {
 		this.permissions = permissions;
 	}
 }

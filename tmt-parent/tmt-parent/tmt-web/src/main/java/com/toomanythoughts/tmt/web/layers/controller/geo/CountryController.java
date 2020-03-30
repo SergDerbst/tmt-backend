@@ -3,8 +3,6 @@ package com.toomanythoughts.tmt.web.layers.controller.geo;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.annotation.security.PermitAll;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +22,7 @@ public class CountryController {
 	@Autowired
 	CountryMetaDataService countryMetaDataService;
 
-	@GetMapping(path="/names")
-	@PermitAll
+	@GetMapping(path="/names", produces = "application/json")
 	public ResponseEntity<Set<CountryNameEntry>> contryNames(final String typed, final Locale lang) {
 		return new ResponseEntity<>(this.countryMetaDataService.fetchCountryNames(typed, lang), HttpStatus.OK);
 	}

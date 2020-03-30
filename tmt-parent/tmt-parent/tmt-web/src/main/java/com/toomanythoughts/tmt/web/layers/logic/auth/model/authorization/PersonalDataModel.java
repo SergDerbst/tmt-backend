@@ -1,10 +1,10 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
+package com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserSex;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserTitle;
 
-public class UserPersonalDataModel extends EpicPojo {
+public class PersonalDataModel extends EpicPojo {
 	private UserTitle title;
 	private String firstName;
 	private String middleNames;

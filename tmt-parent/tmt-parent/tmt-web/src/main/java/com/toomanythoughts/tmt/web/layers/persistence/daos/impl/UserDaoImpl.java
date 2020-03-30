@@ -22,12 +22,17 @@ public class UserDaoImpl extends BaseCrudDaoService<UserRepository, UserEntity> 
 	}
 
 	@Override
+	public UserEntity getById(Integer id) {
+		return this.repository.getById(id);
+	}
+
+	@Override
 	public UserEntity getByUsername(final String username) {
 		return this.repository.getByUsername(username);
 	}
 
 	@Override
-	public UserEntity getById(Integer id) {
-		return this.repository.getById(id);
+	public UserEntity getByEmail(String email) {
+		return this.repository.getByEmail(email);
 	}
 }

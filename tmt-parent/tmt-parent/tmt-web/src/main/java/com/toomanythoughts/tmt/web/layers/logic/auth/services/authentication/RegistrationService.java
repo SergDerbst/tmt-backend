@@ -1,7 +1,5 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.services;
+package com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -9,41 +7,44 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserCredentialsModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserForEmailValidationModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserForRegistrationModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserPersonalDataModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserPersonalDataModel.DayOfBirth;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRoleModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailValidationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.RegistrationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.CredentialsModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.PersonalDataModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.RoleModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.services.DayOfBirthService;
+import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.RoleService;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.UserDao;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.RoleEntity;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
 /**
- * This services registers new users. It transforms the {@link UserForRegistrationModel}
+ * This services registers new users. It transforms the {@link RegistrationModel}
  * to a {@link UserEntity}, creates it in the database, and transforms the resulting entity
- * to a {@link UserForEmailValidationModel}, which will be returned to the application.
+ * to a {@link EmailValidationModel}, which will be returned to the application.
  *
  * @author Sergio Weigel
  *
  */
 @Service
-public class UserRegistrationService {
+public class RegistrationService {
 
 	@Autowired
 	UserDao userDao;
 	@Autowired
 	RoleService roleService;
 	@Autowired
-	UserEmailValidationService emailService;
+	EmailValidationService emailService;
+	@Autowired
+	DayOfBirthService dayOfBirthService;
 
-	public UserForEmailValidationModel create(UserForRegistrationModel user) {
+	public EmailValidationModel create(RegistrationModel user) {
 		return this.emailService.sendMail(this.toModel(this.userDao.create(this.toEntity(user))));
 	}
 
-	public UserEntity toEntity(final UserForRegistrationModel model) {
+	public UserEntity toEntity(final RegistrationModel model) {
 		final UserEntity entity = new UserEntity();
-		entity.setDayOfBirth(this.toDate(model.getPersonalData().getDayOfBirth()));
+		entity.setDayOfBirth(this.dayOfBirthService.toDate(model.getPersonalData().getDayOfBirth()));
 		entity.setEmail(model.getCredentials().getEmail());
 		entity.setEmailValidationKey(String.valueOf(100000000 + new Random().nextInt(900000000)));
 		entity.setFirstName(model.getPersonalData().getFirstName());
@@ -54,7 +55,7 @@ public class UserRegistrationService {
 		entity.setPreferredLanguage(model.getPreferredLanguage());
 		final Set<RoleEntity> roles = new HashSet<>();
 		if(model.getRoles() != null) {
-			for (final UserRoleModel role : model.getRoles()) {
+			for (final RoleModel role : model.getRoles()) {
 				roles.add(this.roleService.toEntity(role));
 			}
 		}
@@ -65,17 +66,17 @@ public class UserRegistrationService {
 		return entity;
 	}
 
-	public UserForEmailValidationModel toModel(final UserEntity entity) {
-		final UserForEmailValidationModel model = new UserForEmailValidationModel();
-		final UserPersonalDataModel personalData = this.personalData(entity);
-		final UserCredentialsModel credentials = this.userCredentials(entity);
+	public EmailValidationModel toModel(final UserEntity entity) {
+		final EmailValidationModel model = new EmailValidationModel();
+		final PersonalDataModel personalData = this.personalData(entity);
+		final CredentialsModel credentials = this.userCredentials(entity);
 		model.setId(entity.getId());
 		model.setEmailValidated(entity.isEmailValidated());
 		model.setEmailValidationKey(entity.getEmailValidationKey());
 		model.setCredentials(credentials);
 		model.setPersonalData(personalData);
 		model.setPreferredLanguage(entity.getPreferredLanguage());
-		final Set<UserRoleModel> roles = new HashSet<>();
+		final Set<RoleModel> roles = new HashSet<>();
 		if (entity.getRoles() != null) {
 			for (final RoleEntity role : entity.getRoles()) {
 				roles.add(this.roleService.toModel(role));
@@ -85,34 +86,21 @@ public class UserRegistrationService {
 		return model;
 	}
 
-	public UserCredentialsModel userCredentials(UserEntity entity) {
-		final UserCredentialsModel credentials = new UserCredentialsModel();
+	public CredentialsModel userCredentials(UserEntity entity) {
+		final CredentialsModel credentials = new CredentialsModel();
 		credentials.setEmail(entity.getEmail());
 		credentials.setUsername(entity.getUsername());
 		return credentials;
 	}
 
-	public UserPersonalDataModel personalData(UserEntity entity) {
-		final UserPersonalDataModel personalData = new UserPersonalDataModel();
-		personalData.setDayOfBirth(this.toDayOfBirth(entity.getDayOfBirth()));
+	public PersonalDataModel personalData(UserEntity entity) {
+		final PersonalDataModel personalData = new PersonalDataModel();
+		personalData.setDayOfBirth(this.dayOfBirthService.toDayOfBirth(entity.getDayOfBirth()));
 		personalData.setFirstName(entity.getFirstName());
 		personalData.setLastName(entity.getLastName());
 		personalData.setMiddleNames(entity.getMiddleNames());
 		personalData.setSex(entity.getSex());
 		personalData.setTitle(entity.getTitle());
 		return personalData;
-	}
-
-	public DayOfBirth toDayOfBirth(final Date date) {
-		final DayOfBirth dayOfBirth = new DayOfBirth();
-		final LocalDate localDate = new java.sql.Date(date.getTime()).toLocalDate();
-		dayOfBirth.setDay(localDate.getDayOfMonth());
-		dayOfBirth.setMonth(localDate.getMonthValue());
-		dayOfBirth.setYear(localDate.getYear());
-		return dayOfBirth;
-	}
-
-	public Date toDate(DayOfBirth dayOfBirth) {
-		return java.sql.Date.valueOf(LocalDate.of(dayOfBirth.getYear(), dayOfBirth.getMonth(), dayOfBirth.getDay()));
 	}
 }

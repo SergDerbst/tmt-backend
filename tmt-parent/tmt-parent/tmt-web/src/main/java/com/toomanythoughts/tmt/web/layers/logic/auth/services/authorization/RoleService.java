@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.services;
+package com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,8 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRoleModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRolePermission;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.PermissionModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.RoleModel;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.RoleDao;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.PermissionEntity;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.RoleEntity;
@@ -33,7 +33,7 @@ public class RoleService {
 		}
 	}
 
-	public UserRoleModel findByName(String name) {
+	public RoleModel findByName(String name) {
 		final RoleEntity roleEntity = this.roleDao.getByName(name);
 		if (roleEntity != null) {
 			return this.toModel(roleEntity);
@@ -42,15 +42,23 @@ public class RoleService {
 		}
 	}
 
-	public UserRoleModel findDefaultRole() {
+	public RoleModel findDefaultRole() {
 		return this.findByName("Reader");
 	}
 
-	public UserRoleModel toModel(final RoleEntity entity) {
-		final UserRoleModel model = new UserRoleModel();
+	public Set<RoleModel> roles(Set<RoleEntity> roles) {
+		final Set<RoleModel> models = new HashSet<>();
+		for (final RoleEntity entity : roles) {
+			models.add(this.toModel(entity));
+		}
+		return models;
+	}
+
+	public RoleModel toModel(final RoleEntity entity) {
+		final RoleModel model = new RoleModel();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
-		final Set<UserRolePermission> permissions = new HashSet<>();
+		final Set<PermissionModel> permissions = new HashSet<>();
 		if (entity.getPermissions() != null && !entity.getPermissions().isEmpty()) {
 			for (final PermissionEntity permissionEntity : entity.getPermissions()) {
 				permissions.add(this.permissionService.toModel(permissionEntity));
@@ -60,13 +68,13 @@ public class RoleService {
 		return model;
 	}
 
-	public RoleEntity toEntity(final UserRoleModel model) {
+	public RoleEntity toEntity(final RoleModel model) {
 		final RoleEntity entity = new RoleEntity();
 		entity.setId(model.getId());
 		entity.setName(model.getName());
 		final Set<PermissionEntity> permissions = new HashSet<>();
 		if (model.getPermissions() != null && !model.getPermissions().isEmpty()) {
-			for (final UserRolePermission permission : model.getPermissions()) {
+			for (final PermissionModel permission : model.getPermissions()) {
 				permissions.add(this.permissionService.toEntity(permission));
 			}
 		}

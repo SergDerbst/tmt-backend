@@ -1,9 +1,11 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
+package com.toomanythoughts.tmt.web.layers.logic.geo.model;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 
-public class UserAddress extends EpicPojo {
+public class AddressModel<T> extends EpicPojo {
 
+	private Integer addressId;
+	private T owner;
 	private String streetAddress01;
 	private String streetAddress02;
 	private String city;
@@ -57,5 +59,21 @@ public class UserAddress extends EpicPojo {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public Integer getAddressId() {
+		return this.addressId;
+	}
+
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
+	}
+
+	public T getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(T owner) {
+		this.owner = owner;
 	}
 }

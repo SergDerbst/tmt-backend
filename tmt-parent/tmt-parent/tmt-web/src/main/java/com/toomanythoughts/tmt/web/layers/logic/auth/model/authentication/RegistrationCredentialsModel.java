@@ -1,8 +1,8 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
+package com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 
-public class UserCredentialsForRegistrationModel extends EpicPojo {
+public class RegistrationCredentialsModel extends EpicPojo {
 	private String username;
 	private String password;
 	private String passwordConfirm;

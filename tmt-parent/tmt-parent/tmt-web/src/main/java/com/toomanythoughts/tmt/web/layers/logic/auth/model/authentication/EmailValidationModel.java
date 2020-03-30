@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.model.user;
+package com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication;
 
 import java.util.Set;
 
@@ -6,13 +6,16 @@ import org.joda.time.DateTime;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 import com.toomanythoughts.tmt.web.layers.logic.LanguageModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.CredentialsModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.PersonalDataModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.RoleModel;
 
-public class UserForEmailValidationModel extends EpicPojo implements LanguageModel {
+public class EmailValidationModel extends EpicPojo implements LanguageModel {
 
 	private Integer id;
-	private Set<UserRoleModel> roles;
-	private UserPersonalDataModel personalData;
-	private UserCredentialsModel credentials;
+	private Set<RoleModel> roles;
+	private PersonalDataModel personalData;
+	private CredentialsModel credentials;
 	private String preferredLanguage;
 	private String emailValidationKey;
 
@@ -28,19 +31,19 @@ public class UserForEmailValidationModel extends EpicPojo implements LanguageMod
 		this.id = id;
 	}
 
-	public Set<UserRoleModel> getRoles() {
+	public Set<RoleModel> getRoles() {
 		return this.roles;
 	}
 
-	public void setRoles(final Set<UserRoleModel> roles) {
+	public void setRoles(final Set<RoleModel> roles) {
 		this.roles = roles;
 	}
 
-	public UserPersonalDataModel getPersonalData() {
+	public PersonalDataModel getPersonalData() {
 		return this.personalData;
 	}
 
-	public void setPersonalData(final UserPersonalDataModel personalData) {
+	public void setPersonalData(final PersonalDataModel personalData) {
 		this.personalData = personalData;
 	}
 
@@ -52,11 +55,11 @@ public class UserForEmailValidationModel extends EpicPojo implements LanguageMod
 		this.isEmailValidated = isEmailValidated;
 	}
 
-	public UserCredentialsModel getCredentials() {
+	public CredentialsModel getCredentials() {
 		return this.credentials;
 	}
 
-	public void setCredentials(UserCredentialsModel credentials) {
+	public void setCredentials(CredentialsModel credentials) {
 		this.credentials = credentials;
 	}
 

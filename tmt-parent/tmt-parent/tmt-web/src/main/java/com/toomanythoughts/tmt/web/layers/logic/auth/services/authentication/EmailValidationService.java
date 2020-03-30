@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.services;
+package com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,21 +12,22 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
 import com.toomanythoughts.tmt.commons.exceptions.logic.impl.auth.EmailValidationFailedRuntimeException;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserForEmailValidationModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.user.UserRoleModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailValidationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.RoleModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.UserModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.RoleService;
 import com.toomanythoughts.tmt.web.layers.logic.communication.email.impl.RegistrationEmailContentBuilder;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.UserDao;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.RoleEntity;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
 @Component
-public class UserEmailValidationService {
+public class EmailValidationService {
 
 	@Autowired
 	JavaMailSender mailSender;
 	@Autowired
-	UserRegistrationService userRegistrationService;
+	RegistrationService userRegistrationService;
 	@Autowired
 	RoleService roleService;
 	@Autowired
@@ -34,7 +35,7 @@ public class UserEmailValidationService {
 	@Autowired
 	RegistrationEmailContentBuilder mailBuilder;
 
-	public UserForEmailValidationModel sendMail(final UserForEmailValidationModel model) {
+	public EmailValidationModel sendMail(final EmailValidationModel model) {
 		final MimeMessagePreparator msgPreparator = mimeMessage -> {
 			final MimeMessageHelper msgHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
 			msgHelper.setFrom("petesideburner@gmail.com");
@@ -58,7 +59,7 @@ public class UserEmailValidationService {
 		}
 	}
 
-	private UserForEmailValidationModel verificationMailSent(UserForEmailValidationModel model) {
+	private EmailValidationModel verificationMailSent(EmailValidationModel model) {
 		final UserEntity entity = this.userDao.getById(model.getId());
 		final Date sent = new Date();
 		entity.setEmailValidationSent(sent);
@@ -71,11 +72,10 @@ public class UserEmailValidationService {
 		final UserModel model = new UserModel();
 		model.setCredentials(this.userRegistrationService.userCredentials(entity));
 		model.setEmailValidated(entity.isEmailValidated());
-		model.setId(entity.getId());
 		model.setPaymentValidated(entity.isPaymentValidated());
 		model.setPersonalData(this.userRegistrationService.personalData(entity));
 		model.setPostalValidated(entity.isPostalValidated());
-		final Set<UserRoleModel> roles = new HashSet<>();
+		final Set<RoleModel> roles = new HashSet<>();
 		for (final RoleEntity roleEntity : entity.getRoles()) {
 			roles.add(this.roleService.toModel(roleEntity));
 		}
