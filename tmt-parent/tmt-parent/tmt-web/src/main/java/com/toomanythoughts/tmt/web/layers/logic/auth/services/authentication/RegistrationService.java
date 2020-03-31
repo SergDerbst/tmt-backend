@@ -7,7 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailValidationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.RegistrationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.CredentialsModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.PersonalDataModel;
@@ -21,7 +21,7 @@ import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 /**
  * This services registers new users. It transforms the {@link RegistrationModel}
  * to a {@link UserEntity}, creates it in the database, and transforms the resulting entity
- * to a {@link EmailValidationModel}, which will be returned to the application.
+ * to a {@link EmailVerificationModel}, which will be returned to the application.
  *
  * @author Sergio Weigel
  *
@@ -34,11 +34,11 @@ public class RegistrationService {
 	@Autowired
 	RoleService roleService;
 	@Autowired
-	EmailValidationService emailService;
+	EmailVerificationService emailService;
 	@Autowired
 	DayOfBirthService dayOfBirthService;
 
-	public EmailValidationModel create(RegistrationModel user) {
+	public EmailVerificationModel create(RegistrationModel user) {
 		return this.emailService.sendMail(this.toModel(this.userDao.create(this.toEntity(user))));
 	}
 
@@ -66,8 +66,8 @@ public class RegistrationService {
 		return entity;
 	}
 
-	public EmailValidationModel toModel(final UserEntity entity) {
-		final EmailValidationModel model = new EmailValidationModel();
+	public EmailVerificationModel toModel(final UserEntity entity) {
+		final EmailVerificationModel model = new EmailVerificationModel();
 		final PersonalDataModel personalData = this.personalData(entity);
 		final CredentialsModel credentials = this.userCredentials(entity);
 		model.setId(entity.getId());

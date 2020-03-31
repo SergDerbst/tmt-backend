@@ -11,8 +11,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
-import com.toomanythoughts.tmt.commons.exceptions.logic.impl.auth.EmailValidationFailedRuntimeException;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailValidationModel;
+import com.toomanythoughts.tmt.web.layers.exceptions.auth.EmailValidationFailedException;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.RoleModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.UserModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.RoleService;
@@ -22,7 +22,7 @@ import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.RoleEntity;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
 @Component
-public class EmailValidationService {
+public class EmailVerificationService {
 
 	@Autowired
 	JavaMailSender mailSender;
@@ -35,7 +35,7 @@ public class EmailValidationService {
 	@Autowired
 	RegistrationEmailContentBuilder mailBuilder;
 
-	public EmailValidationModel sendMail(final EmailValidationModel model) {
+	public EmailVerificationModel sendMail(final EmailVerificationModel model) {
 		final MimeMessagePreparator msgPreparator = mimeMessage -> {
 			final MimeMessageHelper msgHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
 			msgHelper.setFrom("petesideburner@gmail.com");
@@ -48,18 +48,18 @@ public class EmailValidationService {
 	}
 
 
-	public UserModel validate(final Integer userId, final String validationKey) {
+	public UserModel verifyEmail(final Integer userId, final String validationKey) {
 		final UserEntity entity = this.userDao.getById(userId);
 		if (entity.getEmailValidationKey().equals(validationKey)) {
 			entity.setEmailValidated(true);
 			entity.setEmailValidationKey(null);
 			return this.toModel(this.userDao.update(entity));
 		} else {
-			throw EmailValidationFailedRuntimeException.prepare(entity.getUsername(), entity.getEmail());
+			throw EmailValidationFailedException.prepare(entity.getUsername(), entity.getEmail());
 		}
 	}
 
-	private EmailValidationModel verificationMailSent(EmailValidationModel model) {
+	private EmailVerificationModel verificationMailSent(EmailVerificationModel model) {
 		final UserEntity entity = this.userDao.getById(model.getId());
 		final Date sent = new Date();
 		entity.setEmailValidationSent(sent);

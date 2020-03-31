@@ -26,10 +26,18 @@ public class UserService {
 
 	public UserEntity entityByUsernameOrEmail(final AuthenticationModel authenticationModel) {
 		if (this.usernameIsEmail(authenticationModel)) {
-			return this.userDao.getByEmail(authenticationModel.getUsername());
+			return this.entityByEmail(authenticationModel.getUsername());
 		} else {
-			return this.userDao.getByUsername(authenticationModel.getUsername());
+			return this.entityByUsername(authenticationModel.getUsername());
 		}
+	}
+
+	public UserEntity entityByEmail(String email) {
+		return this.userDao.byEmail(email);
+	}
+
+	public UserEntity entityByUsername(String username) {
+		return this.userDao.byUsername(username);
 	}
 
 	public UserModel save(final UserEntity entity) {

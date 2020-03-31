@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.toomanythoughts.tmt.commons.exceptions.logic.impl.auth.AuthenticationFailedRuntimeException;
+import com.toomanythoughts.tmt.web.layers.exceptions.auth.AuthenticationFailedException;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.AuthenticatedModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.AuthenticationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.UserService;
@@ -36,7 +36,7 @@ public class AuthenticationService {
 			entity.setAccessTokenExpiration(new LocalDateTime().plusHours(12).toDate());
 			return this.authenticated(authenticationModel, entity);
 		} else {
-			throw AuthenticationFailedRuntimeException.prepare();
+			throw AuthenticationFailedException.prepare();
 		}
 	}
 

@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.toomanythoughts.tmt.commons.exceptions.logic.impl.FormDataInvalidRuntimeException;
-import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailValidationModel;
+import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.RegistrationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.RoleModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.PersonalDataModel.DayOfBirth;
@@ -29,7 +29,7 @@ import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.Role
  *
  */
 @Component
-public class RegistrationPreparatorService {
+public class RegistrationDataPreparationService {
 
 	@Autowired
 	RegistrationService userService;
@@ -38,7 +38,7 @@ public class RegistrationPreparatorService {
 	@Autowired
 	RoleService roleService;
 
-	public EmailValidationModel register(final RegistrationModel user) {
+	public EmailVerificationModel register(final RegistrationModel user) {
 		this.ensureUser(user);
 		return this.userService.create(user);
 	}

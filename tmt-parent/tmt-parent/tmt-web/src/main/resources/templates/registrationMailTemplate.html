@@ -11,7 +11,7 @@
 			<p th:text="#{registration.mail.preamble}"></p>
 			<p>
 				<a th:text="#{registration.mail.link}"
-					 th:href="@{http://localhost:8081/auth/register/validate/{id}/{key}(id = ${user.id}, key = ${user.emailValidationKey})}"></a>
+					 th:href="@{http://localhost:8081/auth/register/email/verify/{id}/{key}(id = ${user.id}, key = ${user.emailValidationKey})}"></a>
 			</p>
 			<p>
 				<span th:text="#{registration.mail.clue01(${user.credentials.username})}"></span>

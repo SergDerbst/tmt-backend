@@ -51,8 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new String[] {
 				"/",
 				"/auth/login",
-				"/auth/register",
-				"/auth/register/validate/**",
+				"/auth/register/**",
 				"/geo/country/names"
 		};
 	}
