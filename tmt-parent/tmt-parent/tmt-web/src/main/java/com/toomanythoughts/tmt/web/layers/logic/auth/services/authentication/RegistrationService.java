@@ -39,7 +39,7 @@ public class RegistrationService {
 	DayOfBirthService dayOfBirthService;
 
 	public EmailVerificationModel create(RegistrationModel user) {
-		return this.emailService.sendMail(this.toModel(this.userDao.create(this.toEntity(user))));
+		return this.emailService.sendHtmlMail(this.toModel(this.userDao.create(this.toEntity(user))));
 	}
 
 	public UserEntity toEntity(final RegistrationModel model) {

@@ -1,5 +1,7 @@
 package com.toomanythoughts.tmt.web.layers.controller.auth;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.toomanythoughts.tmt.web.layers.exceptions.auth.EmailAlreadyExistsException;
@@ -52,15 +55,28 @@ public class AuthController {
 	}
 
 	@GetMapping(path="/register/email/verify/{userId}/{validationKey}")
-	public void verify(@PathVariable final Integer userId,
-										 @PathVariable final String validationKey,
-										 final HttpServletResponse response) throws Exception {
+	public void verifyEmail(@PathVariable final Integer userId,
+																							 @PathVariable final String validationKey,
+																							 @RequestParam final List<String> send,
+																							 @RequestParam final String verified,
+																							 final HttpServletResponse response) throws Exception {
 		this.emailVerificationService.verifyEmail(userId, validationKey);
-		response.sendRedirect("http://localhost:4200/auth/login");
+		response.sendRedirect(this.redirectUrl(send, verified));
 	}
 
 	@PostMapping(path="/login", produces="application/json")
 	public AuthenticatedModel UserModel(@RequestBody final AuthenticationModel authenticationModel) {
 		return this.authenticationService.authenticate(authenticationModel);
+	}
+
+	private String redirectUrl(List<String> send, String verified) {
+		final StringBuilder s = new StringBuilder("http://localhost:4200");
+		for (final String element : send) {
+			s.append("/");
+			s.append(element);
+		}
+		s.append("?verified=");
+		s.append(verified);
+		return s.toString();
 	}
 }
