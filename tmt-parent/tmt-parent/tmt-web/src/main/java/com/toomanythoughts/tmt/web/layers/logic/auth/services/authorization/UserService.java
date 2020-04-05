@@ -44,7 +44,7 @@ public class UserService {
 		return this.toModel(this.userDao.update(entity));
 	}
 
-	private UserModel toModel(final UserEntity entity) {
+	public UserModel toModel(final UserEntity entity) {
 		final UserModel model = new UserModel();
 		model.setCredentials(this.credentials(entity));
 		model.setEmailValidated(entity.isEmailValidated());

@@ -3,25 +3,50 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
 	</head>
-	<body>
-		<header>TooManyThoughts</header>
-		<section>
-			<p th:text="#{registration.mail.greeting(${#messages.msg('mail.greeting.title.' + user.personalData.title.representation, user.personalData.firstName, user.personalData.lastName)})}"></p>
-			<p th:text="#{registration.mail.preamble}"></p>
+	<body style="background-color: #000000; 
+							 font-family: 'Trebuchet MS', Verdana, sans-serif;
+							 margin: 0;">
+		<header style="background-color: #282828;
+									 border-bottom: 3px solid #971114;
+									 color: #a4b2c0;">
+			<div>
+				<a href="http://localhost:4200/">
+					<img height="65" width="300" src="http://localhost:4200/assets/img/tmt-logo.png">
+				</a>
+			</div>
+		</header>
+		<section style="background-color: #f2f2f2;
+										padding: 20px;">
 			<p>
-				<a th:text="#{registration.mail.link}"
+				<span th:text="#{registration.mail.greeting(${#messages.msg('mail.greeting.title.' + user.personalData.title.representation, user.personalData.firstName, user.personalData.lastName)})}"></span>
+			</p>
+			<p style="font-size: small;"
+				 th:text="#{registration.mail.preamble}"></p>
+			<p style="text-align: center;
+								padding: 15px 0">
+				<a style="color: #a4b2c0;
+									text-decoration: none;
+									background-color: #282828;
+									padding: 10px 100px;
+									border-radius: 5px;"
+					 th:text="#{registration.mail.link}"
 					 th:href="@{http://localhost:8081/auth/register/email/verify/{id}/{key}(id = ${user.id}, key = ${user.emailValidationKey}, send='auth,login', verified='email')}"></a>
 			</p>
-			<p>
+			<p style="font-size: small;">
 				<span th:text="#{registration.mail.clue01(${user.credentials.username})}"></span>
 				<span th:text="#{registration.mail.clue02}"></span>
 			</p>
 			<p th:text="#{registration.mail.catchphrase}"></p>
-			<p th:text="#{registration.mail.goodbye}"></p>
 			<p>
+				<span style="font-size: small;"
+							th:text="#{registration.mail.goodbye}"></span>
+				<br>
 				<span th:text="#{registration.mail.signature01}"></span>
 				<br>
-				<span th:text="#{registration.mail.signature02}"></span>
+				<span style="color: #a4b2c0;
+										 font-size: small;
+										 font-style: italic"
+							th:text="#{registration.mail.signature02}"></span>
 			</p>
 		</section>
 		<footer></footer>

@@ -43,7 +43,6 @@ public class EmailVerificationService {
 		return this.verificationMailSent(model);
 	}
 
-
 	public void verifyEmail(final Integer userId,
 													final String validationKey) {
 		final UserEntity entity = this.userDao.getById(userId);

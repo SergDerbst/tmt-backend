@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private String[] publicEndpoints() {
 		return new String[] {
 				"/",
+				"/auth/email",
 				"/auth/login",
 				"/auth/register/**",
 				"/geo/country/names"
