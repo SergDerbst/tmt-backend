@@ -23,7 +23,7 @@ import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.Regist
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.UsernameValidationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.AuthenticationService;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.EmailVerificationService;
-import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.RegistrationDataPreparationService;
+import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.RegistrationDataPreppingService;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.RegistrationDataValidationService;
 
 @RestController
@@ -35,13 +35,13 @@ public class AuthController {
 	@Autowired
 	EmailVerificationService emailVerificationService;
 	@Autowired
-	RegistrationDataPreparationService registrationDataPreparationService;
+	RegistrationDataPreppingService registrationDataPreparationService;
 	@Autowired
 	RegistrationDataValidationService registrationDataValidationService;
 
 	@PostMapping(path="/register", produces="application/json")
 	public EmailVerificationModel register(@RequestBody final RegistrationModel user) {
-		return this.registrationDataPreparationService.register(user);
+		return this.registrationDataPreparationService.prep(user);
 	}
 
 	@PostMapping(path="/register/email/validate")

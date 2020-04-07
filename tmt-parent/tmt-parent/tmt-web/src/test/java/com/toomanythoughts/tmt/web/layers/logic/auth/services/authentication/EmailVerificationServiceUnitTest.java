@@ -1,4 +1,4 @@
-package com.toomanythoughts.tmt.web.layers.logic.auth.services;
+package com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication;
 
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
