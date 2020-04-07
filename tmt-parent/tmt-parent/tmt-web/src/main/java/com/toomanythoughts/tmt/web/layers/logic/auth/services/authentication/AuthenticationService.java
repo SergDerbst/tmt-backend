@@ -43,7 +43,7 @@ public class AuthenticationService {
 	private AuthenticatedModel authenticated(final AuthenticationModel authenticationModel, final UserEntity entity) {
 		final AuthenticatedModel authenticated = new AuthenticatedModel();
 		authenticated.setUser(this.userService.save(entity));
-		authenticated.setRedirectTo(authenticated.getRedirectTo());
+		authenticated.setRedirectTo(authenticationModel.getRedirectTo());
 		return authenticated;
 	}
 
