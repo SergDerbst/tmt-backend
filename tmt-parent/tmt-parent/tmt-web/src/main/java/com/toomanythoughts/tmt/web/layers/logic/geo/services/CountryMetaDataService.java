@@ -24,7 +24,7 @@ public class CountryMetaDataService {
 
 	public Set<CountryNameEntry> fetchCountryNames(final String typed, final Locale lang) {
 		final Set<CountryNameEntry> matches = new TreeSet<>();
-		if (!typed.isBlank()) {
+		if (typed != null && !typed.isBlank()) {
 			for (final CountryMetaData country : this.countries) {
 				final String countryNames = country.getCountryNames().get(LanguageCode.getByLocale(lang));
 				if (countryNames.contains(typed)) {
@@ -37,6 +37,10 @@ public class CountryMetaDataService {
 			}
 		}
 		return matches;
+	}
+
+	public List<CountryMetaData> getCountries() {
+		return this.countries;
 	}
 
 	private void buildMetaData() {
@@ -316,5 +320,4 @@ public class CountryMetaDataService {
 
 		this.countries.add(new CountryMetaData(CountryCode.AX, LanguageCode.en + "|Åland Islands", LanguageCode.de + "|Ålandinseln"));
 	}
-
 }

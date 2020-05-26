@@ -19,7 +19,7 @@ public class PermissionService {
 	public PermissionEntity toEntity(final PermissionModel model) {
 		final PermissionEntity entity = new PermissionEntity();
 		entity.setId(model.getId());
-		entity.setName(entity.getName());
+		entity.setName(model.getName());
 		entity.setConfiguration(model.getConfiguration());
 		return entity;
 	}

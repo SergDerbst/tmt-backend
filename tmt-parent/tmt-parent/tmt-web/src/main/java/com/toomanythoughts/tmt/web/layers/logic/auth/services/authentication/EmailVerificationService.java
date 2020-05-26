@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.toomanythoughts.tmt.web.layers.exceptions.auth.EmailValidationFailedException;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.RoleService;
-import com.toomanythoughts.tmt.web.layers.logic.communication.email.impl.RegistrationEmailContentBuilder;
+import com.toomanythoughts.tmt.web.layers.logic.communication.email.EmailContentBuilder;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.UserDao;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
@@ -28,7 +28,7 @@ public class EmailVerificationService {
 	@Autowired
 	UserDao userDao;
 	@Autowired
-	RegistrationEmailContentBuilder mailBuilder;
+	EmailContentBuilder<EmailVerificationModel> mailBuilder;
 
 	public EmailVerificationModel sendHtmlMail(final EmailVerificationModel model) {
 		final boolean html = true;
@@ -36,8 +36,8 @@ public class EmailVerificationService {
 			final MimeMessageHelper msgHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
 			msgHelper.setFrom("petesideburner@gmail.com");
 			msgHelper.setTo(model.getCredentials().getEmail());
-			msgHelper.setSubject(this.mailBuilder.subject(model));
-			msgHelper.setText(this.mailBuilder.build(model), html);
+			msgHelper.setSubject(this.mailBuilder.subject(model, "registration.mail.subject"));
+			msgHelper.setText(this.mailBuilder.build(model, "registrationMailTemplate"), html);
 		};
 		this.mailSender.send(msgPreparator);
 		return this.verificationMailSent(model);

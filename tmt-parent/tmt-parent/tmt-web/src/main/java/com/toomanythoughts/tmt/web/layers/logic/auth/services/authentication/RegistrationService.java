@@ -86,14 +86,14 @@ public class RegistrationService {
 		return model;
 	}
 
-	public CredentialsModel userCredentials(UserEntity entity) {
+	public CredentialsModel userCredentials(final UserEntity entity) {
 		final CredentialsModel credentials = new CredentialsModel();
 		credentials.setEmail(entity.getEmail());
 		credentials.setUsername(entity.getUsername());
 		return credentials;
 	}
 
-	public PersonalDataModel personalData(UserEntity entity) {
+	public PersonalDataModel personalData(final UserEntity entity) {
 		final PersonalDataModel personalData = new PersonalDataModel();
 		personalData.setDayOfBirth(this.dayOfBirthService.toDayOfBirth(entity.getDayOfBirth()));
 		personalData.setFirstName(entity.getFirstName());

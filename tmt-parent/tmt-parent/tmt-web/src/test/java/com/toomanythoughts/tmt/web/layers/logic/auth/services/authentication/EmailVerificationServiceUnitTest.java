@@ -32,10 +32,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.toomanythoughts.tmt.web.layers.exceptions.auth.EmailValidationFailedException;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.CredentialsModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.EmailVerificationService;
-import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.RegistrationService;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.RoleService;
-import com.toomanythoughts.tmt.web.layers.logic.communication.email.impl.RegistrationEmailContentBuilder;
+import com.toomanythoughts.tmt.web.layers.logic.communication.email.EmailContentBuilder;
 import com.toomanythoughts.tmt.web.layers.persistence.daos.UserDao;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
@@ -68,7 +66,7 @@ public class EmailVerificationServiceUnitTest {
 	@MockBean
 	UserDao userDao;
 	@MockBean
-	RegistrationEmailContentBuilder mailBuilder;
+	EmailContentBuilder<EmailVerificationModel> mailBuilder;
 	@MockBean
 	EmailVerificationModel emailVerificationModel;
 	@MockBean
@@ -92,8 +90,8 @@ public class EmailVerificationServiceUnitTest {
 	@Test
 	public void sendHtmlMail() throws Exception {
 		//given
-		when(this.mailBuilder.subject(this.emailVerificationModel)).thenReturn(_Subject);
-		when(this.mailBuilder.build(this.emailVerificationModel)).thenReturn(_Message_Text);
+		when(this.mailBuilder.subject(this.emailVerificationModel, "registration.mail.subject")).thenReturn(_Subject);
+		when(this.mailBuilder.build(this.emailVerificationModel, "registrationMailTemplate")).thenReturn(_Message_Text);
 		//when
 		this.toTest.sendHtmlMail(this.emailVerificationModel);
 		//then

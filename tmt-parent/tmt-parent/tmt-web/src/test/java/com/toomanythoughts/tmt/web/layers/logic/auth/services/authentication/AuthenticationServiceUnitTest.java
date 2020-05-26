@@ -25,7 +25,6 @@ import com.toomanythoughts.tmt.web.layers.exceptions.auth.AuthenticationFailedEx
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.AuthenticatedModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authentication.AuthenticationModel;
 import com.toomanythoughts.tmt.web.layers.logic.auth.model.authorization.UserModel;
-import com.toomanythoughts.tmt.web.layers.logic.auth.services.authentication.AuthenticationService;
 import com.toomanythoughts.tmt.web.layers.logic.auth.services.authorization.UserService;
 import com.toomanythoughts.tmt.web.layers.persistence.entities.auth.UserEntity;
 
