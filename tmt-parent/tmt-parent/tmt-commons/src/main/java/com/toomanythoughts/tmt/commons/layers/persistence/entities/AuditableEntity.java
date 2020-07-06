@@ -9,29 +9,38 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public abstract class AuditableEntity extends EpicPojo implements Serializable {
+public abstract class AuditableEntity extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -1073962735512307981L;
 
+	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", nullable = false, updatable = false)
-	@CreatedDate
 	private Date createdAt;
 
+	@CreatedBy
+	@Column(name = "created_by", nullable = false)
+	private String createdBy;
+
+	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_at", nullable = false)
-	@LastModifiedDate
 	private Date updatedAt;
+
+	@LastModifiedBy
+	@Column(name = "udated_by", nullable = false)
+	private String updatedBy;
 
 	public Date getCreatedAt() {
 		return this.createdAt;
@@ -47,5 +56,21 @@ public abstract class AuditableEntity extends EpicPojo implements Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 }

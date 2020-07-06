@@ -7,10 +7,10 @@ import java.lang.reflect.Field;
 
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
-public abstract class BaseEntity extends AuditableEntity {
+import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 
-	private static final long serialVersionUID = -4117313988601224098L;
+@MappedSuperclass
+public abstract class BaseEntity extends EpicPojo {
 
 	public abstract Integer getId();
 
