@@ -16,8 +16,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.toomanythoughts.tmt.web.logic.auth.DayOfBirthService;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel.DayOfBirth;
+import com.toomanythoughts.tmt.web.logic.security.DayOfBirthService;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel.DayOfBirth;
 
 @RunWith(SpringRunner.class)
 public class DayOfBirthService_UnitTest {

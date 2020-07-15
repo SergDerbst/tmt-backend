@@ -5,7 +5,7 @@ import java.time.Duration;
 
 import com.toomanythoughts.tmt.web.logic.content.ContentModel;
 import com.toomanythoughts.tmt.web.logic.content.transcript.Transcription;
-import com.toomanythoughts.tmt.web.logic.content.video.Subtitles;
+import com.toomanythoughts.tmt.web.logic.content.video.model.Subtitles;
 
 public class PodcastModel extends ContentModel {
 

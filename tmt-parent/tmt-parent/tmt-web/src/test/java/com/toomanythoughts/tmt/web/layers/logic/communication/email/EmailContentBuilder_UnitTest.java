@@ -26,8 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.logic.communications.email.EmailContentBuilder;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.EmailVerificationModel;
 
 @RunWith(SpringRunner.class)
 public class EmailContentBuilder_UnitTest {

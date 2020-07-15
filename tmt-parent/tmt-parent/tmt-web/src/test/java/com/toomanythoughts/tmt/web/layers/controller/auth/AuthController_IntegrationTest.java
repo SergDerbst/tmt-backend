@@ -21,14 +21,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toomanythoughts.tmt.web.config.PersistenceAuditConfiguration;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationCredentialsModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PermissionModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.RoleModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel.DayOfBirth;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserSex;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserTitle;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationCredentialsModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PermissionModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.RoleModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel.DayOfBirth;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserSex;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserTitle;
 
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 

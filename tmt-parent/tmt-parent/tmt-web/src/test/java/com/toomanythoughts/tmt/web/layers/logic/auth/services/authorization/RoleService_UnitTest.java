@@ -22,13 +22,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PermissionModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.RoleModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.services.PermissionService;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.services.RoleService;
-import com.toomanythoughts.tmt.web.persistence.daos.RoleDao;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.PermissionEntity;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.RoleEntity;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PermissionModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.RoleModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.security.PermissionService;
+import com.toomanythoughts.tmt.web.logic.security.authorization.security.RoleService;
+import com.toomanythoughts.tmt.web.persistence.daos.security.RoleDao;
+import com.toomanythoughts.tmt.web.persistence.entities.security.PermissionEntity;
+import com.toomanythoughts.tmt.web.persistence.entities.security.RoleEntity;
 
 @RunWith(SpringRunner.class)
 public class RoleService_UnitTest {

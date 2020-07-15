@@ -14,9 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PermissionModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.services.PermissionService;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.PermissionEntity;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PermissionModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.security.PermissionService;
+import com.toomanythoughts.tmt.web.persistence.entities.security.PermissionEntity;
 
 @RunWith(SpringRunner.class)
 public class PermissionService_UnitTest {

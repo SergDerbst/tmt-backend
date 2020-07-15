@@ -9,8 +9,8 @@ import java.util.Map;
 import org.joda.time.DateTime;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationModel;
 import com.toomanythoughts.tmt.web.logic.content.Version;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationModel;
 
 public class Article extends EpicPojo {
 

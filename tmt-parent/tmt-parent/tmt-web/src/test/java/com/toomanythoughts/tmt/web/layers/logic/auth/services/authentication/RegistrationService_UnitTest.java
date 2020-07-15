@@ -26,21 +26,21 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.toomanythoughts.tmt.web.logic.auth.DayOfBirthService;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.EmailVerificationModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationCredentialsModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.services.EmailVerificationService;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.services.RegistrationService;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.RoleModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel.DayOfBirth;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.services.RoleService;
-import com.toomanythoughts.tmt.web.persistence.daos.UserDao;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.RoleEntity;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserEntity;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserSex;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserTitle;
+import com.toomanythoughts.tmt.web.logic.security.DayOfBirthService;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.EmailVerificationModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationCredentialsModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.services.EmailVerificationService;
+import com.toomanythoughts.tmt.web.logic.security.authentication.services.RegistrationService;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.RoleModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel.DayOfBirth;
+import com.toomanythoughts.tmt.web.logic.security.authorization.security.RoleService;
+import com.toomanythoughts.tmt.web.persistence.daos.security.UserDao;
+import com.toomanythoughts.tmt.web.persistence.entities.security.RoleEntity;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserEntity;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserSex;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserTitle;
 
 @RunWith(SpringRunner.class)
 public class RegistrationService_UnitTest {

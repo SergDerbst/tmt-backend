@@ -8,11 +8,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.toomanythoughts.tmt.web.logic.security.authorization.AuthorizationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -27,7 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.authorizeRequests()
 			.antMatchers(this.publicEndpoints()).permitAll()
-			.anyRequest().authenticated();
+			.anyRequest().authenticated()
+			.and()
+			.addFilter(new AuthorizationFilter(super.authenticationManager()))
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Bean
@@ -53,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/auth/email",
 				"/auth/login",
 				"/auth/register/**",
+				"/data/validation/**",
 				"/geo/country/names"
 		};
 	}

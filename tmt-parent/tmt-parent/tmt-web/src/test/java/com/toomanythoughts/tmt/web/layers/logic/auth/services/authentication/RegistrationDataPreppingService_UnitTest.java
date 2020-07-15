@@ -26,16 +26,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.toomanythoughts.tmt.commons.exceptions.logic.impl.FormDataInvalidRuntimeException;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationCredentialsModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.RegistrationModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.services.RegistrationDataPreppingService;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.services.RegistrationService;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.RoleModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.PersonalDataModel.DayOfBirth;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.services.RoleService;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserSex;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserTitle;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationCredentialsModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.services.RegistrationDataPreppingService;
+import com.toomanythoughts.tmt.web.logic.security.authentication.services.RegistrationService;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.RoleModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel.DayOfBirth;
+import com.toomanythoughts.tmt.web.logic.security.authorization.security.RoleService;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserSex;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserTitle;
 
 @RunWith(SpringRunner.class)
 public class RegistrationDataPreppingService_UnitTest {

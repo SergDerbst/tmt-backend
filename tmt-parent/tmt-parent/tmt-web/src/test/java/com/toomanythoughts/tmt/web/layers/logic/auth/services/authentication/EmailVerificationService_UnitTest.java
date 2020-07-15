@@ -29,15 +29,15 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.toomanythoughts.tmt.web.exceptions.auth.EmailValidationFailedException;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.model.EmailVerificationModel;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.services.EmailVerificationService;
-import com.toomanythoughts.tmt.web.logic.auth.authentication.services.RegistrationService;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.model.CredentialsModel;
-import com.toomanythoughts.tmt.web.logic.auth.authorization.services.RoleService;
+import com.toomanythoughts.tmt.web.exceptions.security.EmailValidationFailedRuntimeException;
 import com.toomanythoughts.tmt.web.logic.communications.email.EmailContentBuilder;
-import com.toomanythoughts.tmt.web.persistence.daos.UserDao;
-import com.toomanythoughts.tmt.web.persistence.entities.auth.UserEntity;
+import com.toomanythoughts.tmt.web.logic.security.authentication.model.EmailVerificationModel;
+import com.toomanythoughts.tmt.web.logic.security.authentication.services.EmailVerificationService;
+import com.toomanythoughts.tmt.web.logic.security.authentication.services.RegistrationService;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.CredentialsModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.security.RoleService;
+import com.toomanythoughts.tmt.web.persistence.daos.security.UserDao;
+import com.toomanythoughts.tmt.web.persistence.entities.security.UserEntity;
 
 @RunWith(SpringRunner.class)
 public class EmailVerificationService_UnitTest {
@@ -115,7 +115,7 @@ public class EmailVerificationService_UnitTest {
 		verify(this.userDao, times(1)).update(this.userEntity);
 	}
 
-	@Test(expected = EmailValidationFailedException.class)
+	@Test(expected = EmailValidationFailedRuntimeException.class)
 	public void verifyEmail_Failure() {
 		//given
 		when(this.userEntity.getEmailValidationKey()).thenReturn("total rubbish");
