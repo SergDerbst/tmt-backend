@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.toomanythoughts.tmt.commons.exceptions.logic.impl.FormDataInvalidException;
 import com.toomanythoughts.tmt.web.exceptions.security.AuthorizationFailedException;
 import com.toomanythoughts.tmt.web.exceptions.security.EmailAlreadyExistsException;
 import com.toomanythoughts.tmt.web.logic.security.authentication.model.AuthenticatedModel;
@@ -39,7 +40,7 @@ public class SecurityController {
 	RegistrationDataValidationService registrationDataValidationService;
 
 	@PostMapping(path="/register", produces="application/json")
-	public EmailVerificationModel register(@RequestBody final RegistrationModel user) {
+	public EmailVerificationModel register(@RequestBody final RegistrationModel user) throws FormDataInvalidException {
 		return this.registrationDataPreparationService.prepAndRegister(user);
 	}
 

@@ -3,15 +3,21 @@ package com.toomanythoughts.tmt.web.logic.content.podcast;
 import java.net.URI;
 import java.time.Duration;
 
+import com.toomanythoughts.tmt.web.logic.content.ContentHeader;
+import com.toomanythoughts.tmt.web.logic.content.ContentMetadata;
 import com.toomanythoughts.tmt.web.logic.content.ContentModel;
-import com.toomanythoughts.tmt.web.logic.content.transcript.Transcription;
-import com.toomanythoughts.tmt.web.logic.content.video.model.Subtitles;
+import com.toomanythoughts.tmt.web.logic.content.transcript.Transcript;
+import com.toomanythoughts.tmt.web.logic.content.transcript.subtitles.Subtitles;
 
 public class PodcastModel extends ContentModel {
 
+	public PodcastModel(ContentHeader header, ContentMetadata metadata) {
+		super(header, metadata);
+	}
+
 	private URI url;
 	private Subtitles subtitles;
-	private Transcription transcription;
+	private Transcript transcription;
 	private Duration duration;
 
 	public URI getUrl() {
@@ -30,16 +36,16 @@ public class PodcastModel extends ContentModel {
 		this.subtitles = subtitles;
 	}
 
-	public Transcription getTranscription() {
+	public Transcript getTranscription() {
 		return this.transcription;
 	}
 
-	public void setTranscription(Transcription transcription) {
+	public void setTranscription(Transcript transcription) {
 		this.transcription = transcription;
 	}
 
 	public Duration getDuration() {
-		return duration;
+		return this.duration;
 	}
 
 	public void setDuration(Duration duration) {

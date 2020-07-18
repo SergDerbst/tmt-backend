@@ -30,7 +30,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 		final String header = request.getHeader(SecurityConstants.Header_String);
 
 		if (header == null || !header.startsWith(SecurityConstants.Token_Prefix)) {
-			System.out.println("############## - Agga Bugga, AuthorizationFilter");
 			chain.doFilter(request, response);
 			return;
 		}
@@ -48,6 +47,8 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 					.build()
 					.verify(token.replace(SecurityConstants.Token_Prefix, ""))
 					.getSubject();
+
+
 
 			if (username != null) {
 				return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());

@@ -7,7 +7,7 @@ public interface UserDao extends CrudDao<UserEntity, Integer> {
 
 	UserEntity getById(Integer id);
 
-	UserEntity byUsername(String username);
+	UserEntity getByUsername(String username);
 
 	UserEntity byEmail(String email);
 

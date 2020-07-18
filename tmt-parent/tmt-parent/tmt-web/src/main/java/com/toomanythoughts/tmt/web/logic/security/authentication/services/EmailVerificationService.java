@@ -1,8 +1,8 @@
 package com.toomanythoughts.tmt.web.logic.security.authentication.services;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -60,7 +60,7 @@ public class EmailVerificationService {
 		final Date sent = new Date();
 		entity.setEmailValidationSent(sent);
 		this.userDao.update(entity);
-		model.setEmailSentAt(new DateTime(sent));
+		model.setEmailSentAt(new Timestamp(sent.getTime()).toLocalDateTime());
 		return model;
 	}
 }

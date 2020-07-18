@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.toomanythoughts.tmt.commons.layers.persistence.BaseCrudDaoService;
+import com.toomanythoughts.tmt.commons.layers.persistence.BaseCrudDao;
 import com.toomanythoughts.tmt.web.persistence.daos.security.UserDao;
 import com.toomanythoughts.tmt.web.persistence.entities.security.UserEntity;
 import com.toomanythoughts.tmt.web.persistence.repositories.security.UserRepository;
 
 @Repository
 @Transactional
-public class UserDaoImpl extends BaseCrudDaoService<UserRepository, UserEntity> implements UserDao {
+public class UserDaoImpl extends BaseCrudDao<UserRepository, UserEntity> implements UserDao {
 
 	@Autowired
 	UserRepository repository;
@@ -27,7 +27,7 @@ public class UserDaoImpl extends BaseCrudDaoService<UserRepository, UserEntity> 
 	}
 
 	@Override
-	public UserEntity byUsername(final String username) {
+	public UserEntity getByUsername(final String username) {
 		return this.repository.getByUsername(username);
 	}
 

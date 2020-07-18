@@ -8,7 +8,7 @@ package com.toomanythoughts.tmt.web.logic.content;
  */
 public enum ContentStatus {
 	/*
-	 * Has been created, but is still empty (only title, subtitle, and notes)
+	 * Has been created, but is still empty (only mandatory data).
 	 */
 	Created,
 	/*
@@ -17,17 +17,18 @@ public enum ContentStatus {
 	 */
 	InProcess,
 	/*
-	 *  Has been finished and was given to another author for review.
+	 *  Has been finished and was given to another author for review (optional).
 	 */
 	InReview,
 	/*
-	 *  Has been reviewed. Note: an article can be reviewed and in review several times before
+	 *  Has been reviewed (optional).
+	 *  Note: an articles and transcipts can be reviewed and in review several times before
 	 *  being published.
 	 */
 	Reviewed,
 	/*
-	 * Has been scheduled for release. This optional for when a future release is targeted
-	 * on a specific date or time.
+	 * Has been scheduled for release (optional, when a future release is targeted
+	 * on a specific date or time).
 	 */
 	Scheduled,
 	/*
@@ -35,7 +36,7 @@ public enum ContentStatus {
 	 */
 	Published,
 	/*
-	 * Has been removement from public consumption.
+	 * Has been removed from public consumption.
 	 */
 	Unpublished;
 }

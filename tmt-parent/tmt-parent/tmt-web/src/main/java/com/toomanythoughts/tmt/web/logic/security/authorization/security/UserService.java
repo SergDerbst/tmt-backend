@@ -10,6 +10,7 @@ import com.toomanythoughts.tmt.web.logic.security.DayOfBirthService;
 import com.toomanythoughts.tmt.web.logic.security.authentication.model.AuthenticationModel;
 import com.toomanythoughts.tmt.web.logic.security.authorization.model.CredentialsModel;
 import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.SimpleUserModel;
 import com.toomanythoughts.tmt.web.logic.security.authorization.model.UserModel;
 import com.toomanythoughts.tmt.web.persistence.daos.security.UserDao;
 import com.toomanythoughts.tmt.web.persistence.entities.security.UserEntity;
@@ -32,16 +33,27 @@ public class UserService {
 		}
 	}
 
+	public UserEntity entityById(final Integer id) {
+		return this.userDao.getById(id);
+	}
+
+	public UserEntity entityByUsername(String username) {
+		return this.userDao.getByUsername(username);
+	}
+
 	public UserEntity entityByEmail(String email) {
 		return this.userDao.byEmail(email);
 	}
 
-	public UserEntity entityByUsername(String username) {
-		return this.userDao.byUsername(username);
-	}
-
 	public UserModel save(final UserEntity entity) {
 		return this.toModel(this.userDao.update(entity));
+	}
+
+	public SimpleUserModel toSimpleModel(final UserEntity entity) {
+		final SimpleUserModel model = new SimpleUserModel();
+		model.setId(entity.getId());
+		model.setUsername(entity.getUsername());
+		return model;
 	}
 
 	public UserModel toModel(final UserEntity entity) {
@@ -57,9 +69,7 @@ public class UserService {
 
 	private CredentialsModel credentials(UserEntity entity) {
 		final CredentialsModel credentials = new CredentialsModel();
-		credentials.setAccessToken(entity.getAccessToken());
 		credentials.setEmail(entity.getEmail());
-		credentials.setRefreshToken(entity.getRefreshToken());
 		credentials.setUsername(entity.getUsername());
 		return credentials;
 	}

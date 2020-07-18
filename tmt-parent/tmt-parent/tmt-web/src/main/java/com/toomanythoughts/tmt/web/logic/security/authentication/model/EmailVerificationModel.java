@@ -1,8 +1,7 @@
 package com.toomanythoughts.tmt.web.logic.security.authentication.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
-
-import org.joda.time.DateTime;
 
 import com.toomanythoughts.tmt.commons.layers.logic.model.EpicPojo;
 import com.toomanythoughts.tmt.web.logic.geo.LanguageModel;
@@ -20,7 +19,7 @@ public class EmailVerificationModel extends EpicPojo implements LanguageModel {
 	private String emailValidationKey;
 
 	private boolean isEmailValidated;
-	private DateTime emailSentAt;
+	private LocalDateTime emailSentAt;
 	private String encryptedMail;
 
 	public Integer getId() {
@@ -63,11 +62,11 @@ public class EmailVerificationModel extends EpicPojo implements LanguageModel {
 		this.credentials = credentials;
 	}
 
-	public DateTime getEmailSentAt() {
+	public LocalDateTime getEmailSentAt() {
 		return this.emailSentAt;
 	}
 
-	public void setEmailSentAt(DateTime emailSentAt) {
+	public void setEmailSentAt(LocalDateTime emailSentAt) {
 		this.emailSentAt = emailSentAt;
 	}
 

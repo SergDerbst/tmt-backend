@@ -98,11 +98,6 @@
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
 		</dependency>
-		<!-- Joda Time -->
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
 		<!-- JWT -->
 		<dependency>
 			<groupId>com.auth0</groupId>

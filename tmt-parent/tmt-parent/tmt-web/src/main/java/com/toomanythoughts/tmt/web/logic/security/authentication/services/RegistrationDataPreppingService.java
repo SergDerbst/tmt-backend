@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.toomanythoughts.tmt.commons.exceptions.logic.impl.FormDataInvalidRuntimeException;
+import com.toomanythoughts.tmt.commons.exceptions.logic.impl.FormDataInvalidException;
 import com.toomanythoughts.tmt.web.logic.security.authentication.model.EmailVerificationModel;
 import com.toomanythoughts.tmt.web.logic.security.authentication.model.RegistrationModel;
-import com.toomanythoughts.tmt.web.logic.security.authorization.model.RoleModel;
 import com.toomanythoughts.tmt.web.logic.security.authorization.model.PersonalDataModel.DayOfBirth;
+import com.toomanythoughts.tmt.web.logic.security.authorization.model.RoleModel;
 import com.toomanythoughts.tmt.web.logic.security.authorization.security.RoleService;
 
 /**
@@ -38,14 +38,14 @@ public class RegistrationDataPreppingService {
 	@Autowired
 	RoleService roleService;
 
-	public EmailVerificationModel prepAndRegister(final RegistrationModel user) {
+	public EmailVerificationModel prepAndRegister(final RegistrationModel user) throws FormDataInvalidException {
 		this.ensureUser(user);
 		return this.userService.create(user);
 	}
 
-	private void ensureUser(final RegistrationModel user) {
+	private void ensureUser(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getId() != null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.with.id", "user.id", user.getId());
+			throw FormDataInvalidException.prepare("error.message.register.user.with.id", "user.id", user.getId());
 		}
 		this.ensurePersonalData(user);
 		this.ensureCredentials(user);
@@ -60,7 +60,7 @@ public class RegistrationDataPreppingService {
 		}
 	}
 
-	private void ensureRoles(RegistrationModel user) {
+	private void ensureRoles(RegistrationModel user) throws FormDataInvalidException {
 		final Set<RoleModel> realRoles = new HashSet<>();
 		if (user.getRoles() == null || user.getRoles().size() == 0) {
 			realRoles.add(this.roleService.findDefaultRole());
@@ -70,7 +70,7 @@ public class RegistrationDataPreppingService {
 				if (real != null) {
 					realRoles.add(real);
 				} else {
-					throw FormDataInvalidRuntimeException.prepare("error.message.register.user.role.unknown", "user.roles", role.getName());
+					throw FormDataInvalidException.prepare("error.message.register.user.role.unknown", "user.roles", role.getName());
 				}
 			}
 		}
@@ -78,61 +78,61 @@ public class RegistrationDataPreppingService {
 	}
 
 
-	private void ensureCredentials(RegistrationModel user) {
+	private void ensureCredentials(RegistrationModel user) throws FormDataInvalidException {
 		if (user.getCredentials() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.without.credentials", "user.credentials", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.without.credentials", "user.credentials", null);
 		}
 		this.ensureUsername(user);
 		this.ensureEmail(user);
 		this.ensurePassword(user);
 	}
 
-	private void ensureUsername(RegistrationModel user) {
+	private void ensureUsername(RegistrationModel user) throws FormDataInvalidException {
 		if (user.getCredentials().getUsername() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.without.username", "user.credentials.username", user.getCredentials().getUsername());
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.without.username", "user.credentials.username", user.getCredentials().getUsername());
 		}
 		if (user.getCredentials().getUsername().length() < 4) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.username.minLength", "user.credentials.username", user.getCredentials().getUsername());
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.username.minLength", "user.credentials.username", user.getCredentials().getUsername());
 		}
 	}
 
-	private void ensureEmail(RegistrationModel user) {
+	private void ensureEmail(RegistrationModel user) throws FormDataInvalidException {
 		if (user.getCredentials().getEmail() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.without.email.address", "user.credentials.email", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.without.email.address", "user.credentials.email", null);
 		}
 		if (user.getCredentials().getEmailConfirm() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.without.email.address.confirmation", "user.credentials.emailConfirm", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.without.email.address.confirmation", "user.credentials.emailConfirm", null);
 		}
 		if (!user.getCredentials().getEmail().equals(user.getCredentials().getEmailConfirm())) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.with.email.address.confirmation.not.matching", "user.credentials.email && user.credentials.emailConfirm", user.getCredentials().getEmail() + " && " + user.getCredentials().getEmailConfirm());
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.with.email.address.confirmation.not.matching", "user.credentials.email && user.credentials.emailConfirm", user.getCredentials().getEmail() + " && " + user.getCredentials().getEmailConfirm());
 		}
 		try {
 			final InternetAddress email = new InternetAddress(user.getCredentials().getEmail());
 			email.validate();
 		} catch (final AddressException e) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.with.email.address.invalid", "user.credentials.email", user.getCredentials().getEmail(), e);
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.with.email.address.invalid", "user.credentials.email", user.getCredentials().getEmail(), e);
 		}
 	}
 
-	private void ensurePassword(RegistrationModel user) {
+	private void ensurePassword(RegistrationModel user) throws FormDataInvalidException {
 		if (user.getCredentials().getPassword() == null || user.getCredentials().getPassword().isBlank()) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.without.password", "user.credentials.password", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.without.password", "user.credentials.password", null);
 		}
 		if (!user.getCredentials().getPassword().equals(user.getCredentials().getPasswordConfirm())) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.with.password.confirmation.not.matching", "user.credentials.password && user.credentials.passwordConfirm", user.getCredentials().getPassword() + " && " + user.getCredentials().getPasswordConfirm());
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.with.password.confirmation.not.matching", "user.credentials.password && user.credentials.passwordConfirm", user.getCredentials().getPassword() + " && " + user.getCredentials().getPasswordConfirm());
 		}
 		final String strongMatch = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!_-]).{8,40})";
 		if (!Pattern.compile(strongMatch).matcher(user.getCredentials().getPassword()).matches()) {
 			//Password must be between 8 and 40 characters long, have at least one digit, one special, one upper, and one lower case character.
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.credentials.with.password.invalid", "user.credentials.password", user.getCredentials().getPassword());
+			throw FormDataInvalidException.prepare("error.message.register.user.credentials.with.password.invalid", "user.credentials.password", user.getCredentials().getPassword());
 		}
 		user.getCredentials().setPassword(this.passwordEncoder.encode(user.getCredentials().getPassword()));
 		user.getCredentials().setPasswordConfirm(null);
 	}
 
-	private void ensurePersonalData(final RegistrationModel user) {
+	private void ensurePersonalData(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getPersonalData() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.without.personalData", "user.personalData", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.without.personalData", "user.personalData", null);
 		}
 		this.ensureTitle(user);
 		this.ensureFirstName(user);
@@ -142,18 +142,18 @@ public class RegistrationDataPreppingService {
 		this.ensureSex(user);
 	}
 
-	private void ensureTitle(final RegistrationModel user) {
+	private void ensureTitle(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getPersonalData().getTitle() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.title", "user.personalData.title", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.title", "user.personalData.title", null);
 		}
 	}
 
-	private void ensureFirstName(final RegistrationModel user) {
+	private void ensureFirstName(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getPersonalData().getFirstName() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.firstName", "user.personalData.firstName", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.firstName", "user.personalData.firstName", null);
 		}
 		if (user.getPersonalData().getFirstName().length() == 0) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.firstName", "user.personalData.firstName", "");
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.firstName", "user.personalData.firstName", "");
 		}
 	}
 
@@ -161,37 +161,37 @@ public class RegistrationDataPreppingService {
 		//all is rosy and peachy here
 	}
 
-	private void ensureLastName(final RegistrationModel user) {
+	private void ensureLastName(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getPersonalData().getLastName() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.lastName", "user.personalData.lastName", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.lastName", "user.personalData.lastName", null);
 		}
 		if (user.getPersonalData().getLastName().length() == 0) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.lastName", "user.personalData.lastName", "");
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.lastName", "user.personalData.lastName", "");
 		}
 	}
 
-	private void ensureDayOfBirth(final RegistrationModel user) {
+	private void ensureDayOfBirth(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getPersonalData().getDayOfBirth() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.dayOfBirth", "user.personalData.dayOfBirth", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.dayOfBirth", "user.personalData.dayOfBirth", null);
 		}
 		final DayOfBirth dayOfBirth = user.getPersonalData().getDayOfBirth();
 		final LocalDate birthday = LocalDate.of(dayOfBirth.getYear(), dayOfBirth.getMonth(), dayOfBirth.getDay());
 		final LocalDate today = LocalDate.now();
 		if (today.isBefore(birthday)) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.with.dayOfBirth.future", "user.personalData.dayOfBirth", dayOfBirth);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.with.dayOfBirth.future", "user.personalData.dayOfBirth", dayOfBirth);
 		}
 		final Period age = Period.between(birthday, today);
 		if (age.getYears() < 14)  {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.with.dayOfBirth.tooYoung", "user.personalData.dayOfBirth", dayOfBirth);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.with.dayOfBirth.tooYoung", "user.personalData.dayOfBirth", dayOfBirth);
 		}
 		if (age.getYears() > 120) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.with.dayOfBirth.tooOld", "user.personalData.dayOfBirth", dayOfBirth);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.with.dayOfBirth.tooOld", "user.personalData.dayOfBirth", dayOfBirth);
 		}
 	}
 
-	private void ensureSex(final RegistrationModel user) {
+	private void ensureSex(final RegistrationModel user) throws FormDataInvalidException {
 		if (user.getPersonalData().getSex() == null) {
-			throw FormDataInvalidRuntimeException.prepare("error.message.register.user.personalData.without.sex", "user.personalData.sex", null);
+			throw FormDataInvalidException.prepare("error.message.register.user.personalData.without.sex", "user.personalData.sex", null);
 		}
 	}
 }

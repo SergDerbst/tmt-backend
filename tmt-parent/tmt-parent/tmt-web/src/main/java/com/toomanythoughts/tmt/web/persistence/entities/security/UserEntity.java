@@ -1,6 +1,7 @@
 package com.toomanythoughts.tmt.web.persistence.entities.security;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,22 +15,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
 
 import org.hibernate.annotations.Type;
 
 import com.toomanythoughts.tmt.commons.layers.persistence.entities.BaseEntity;
+import com.toomanythoughts.tmt.web.persistence.entities.content.VideoEntity;
+import com.toomanythoughts.tmt.web.persistence.entities.content.VideoTranslationEntity;
 
 @Entity
 @Table(name = "users")
-//@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
+//@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class UserEntity extends BaseEntity {
-
-	private static final long serialVersionUID = -7568675960337363730L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -50,7 +51,6 @@ public class UserEntity extends BaseEntity {
 	@Column(name =" password", nullable = false, length = 255)
 	private String password;
 
-	@Email
 	@Column(name = "email", unique = true, nullable = false, length = 255)
 	private String email;
 
@@ -95,14 +95,18 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "is_postal_validated")
 	private boolean isPostalValidated;
 
-	@Column(name = "access_token")
-	private String accessToken;
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+	private List<VideoEntity> ownedVideos;
 
-	@Column(name = "access_token_expiration")
-	private Date accessTokenExpiration;
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+	private List<VideoTranslationEntity> ownedVideoTranslations;
 
-	@Column(name = "refresh_token")
-	private String refreshToken;
+	@ManyToMany
+	@JoinTable(
+			name = "users_video_translations",
+			joinColumns = { @JoinColumn(name = "video_id") },
+			inverseJoinColumns = { @JoinColumn(name = "video_translation_id") })
+	private List<VideoTranslationEntity> contributedVideoTranslations;
 
 	@Override
 	public Integer getId() {
@@ -241,27 +245,27 @@ public class UserEntity extends BaseEntity {
 		this.emailValidationKey = emailValidationKey;
 	}
 
-	public String getAccessToken() {
-		return this.accessToken;
+	public List<VideoEntity> getOwnedVideos() {
+		return this.ownedVideos;
 	}
 
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
+	public List<VideoTranslationEntity> getOwnedVideoTranslations() {
+		return this.ownedVideoTranslations;
 	}
 
-	public Date getAccessTokenExpiration() {
-		return this.accessTokenExpiration;
+	public void setOwnedVideoTranslations(List<VideoTranslationEntity> ownedVideoTranslations) {
+		this.ownedVideoTranslations = ownedVideoTranslations;
 	}
 
-	public void setAccessTokenExpiration(Date accessTokenExpiration) {
-		this.accessTokenExpiration = accessTokenExpiration;
+	public List<VideoTranslationEntity> getContributedVideoTranslations() {
+		return this.contributedVideoTranslations;
 	}
 
-	public String getRefreshToken() {
-		return this.refreshToken;
+	public void setContributedVideoTranslations(List<VideoTranslationEntity> contributedVideoTranslations) {
+		this.contributedVideoTranslations = contributedVideoTranslations;
 	}
 
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
+	public void setOwnedVideos(List<VideoEntity> ownedVideos) {
+		this.ownedVideos = ownedVideos;
 	}
 }

@@ -1,47 +1,25 @@
 package com.toomanythoughts.tmt.web.logic.content.video.model;
 
-import java.net.URI;
-import java.time.Duration;
-
 import com.toomanythoughts.tmt.web.logic.content.ContentModel;
-import com.toomanythoughts.tmt.web.logic.content.transcript.Transcription;
+import com.toomanythoughts.tmt.web.logic.content.transcript.Transcript;
 
-public class VideoModel extends ContentModel {
+public class VideoModel extends ContentModel<VideoHeader, VideoMetadata> {
 
-	private URI url;
-	private Subtitles subtitles;
-	private Transcription transcription;
-	private Duration duration;
-
-	public URI getUrl() {
-		return this.url;
+	public VideoModel() {
+		this(new VideoHeader(), new VideoMetadata());
 	}
 
-	public void setUrl(URI url) {
-		this.url = url;
+	public VideoModel(final VideoHeader header, final VideoMetadata metadata) {
+		super(header, metadata);
 	}
 
-	public Subtitles getSubtitles() {
-		return this.subtitles;
+	private Transcript transcript;
+
+	public Transcript getTranscript() {
+		return this.transcript;
 	}
 
-	public void setSubtitles(Subtitles subtitles) {
-		this.subtitles = subtitles;
-	}
-
-	public Transcription getTranscription() {
-		return this.transcription;
-	}
-
-	public void setTranscription(Transcription transcription) {
-		this.transcription = transcription;
-	}
-
-	public Duration getDuration() {
-		return this.duration;
-	}
-
-	public void setDuration(Duration duration) {
-		this.duration = duration;
+	public void setTranscript(Transcript transcript) {
+		this.transcript = transcript;
 	}
 }

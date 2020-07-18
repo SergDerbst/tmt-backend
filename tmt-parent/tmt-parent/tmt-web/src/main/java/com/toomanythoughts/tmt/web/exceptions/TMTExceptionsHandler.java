@@ -17,6 +17,7 @@ public abstract class TMTExceptionsHandler extends ResponseEntityExceptionHandle
 	protected ErrorResponseModel errorResponseModel(final ContextedException e, WebRequest request) {
 		final ErrorResponseModel errorModel = new ErrorResponseModel();
 		errorModel.setName(this.clearExceptionName(e.getClass().getSimpleName()));
+		errorModel.setMessage(e.getMessage());
 		return errorModel;
 	}
 
